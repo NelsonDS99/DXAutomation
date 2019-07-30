@@ -49,28 +49,26 @@ public class htmlCreator extends RevisedVerifyResultMethods
     String tableHeaderCells                                                 = tableHeaderCells(SampleID, verifySampleID, verifyAssayName, verifyStatus, verifyErrorStatus, verifyAssayNameR,
                                                                                verifyTextBox,verifyResultColor, verifyDisclaimer);
     
+    String tableWidth                                                       = "<table style=\"width:100%\">\r\n<tr>\r\n";
+    String endRow                                                           = "</tr>\r\n";
+    String endTable                                                         = "</table>\r\n";
+    String beginRow                                                         = "<tr>\r\n";
     String styleTable                                                       = styleTable();
     String styleRows                                                        = styleRows();
     String styleExtra                                                       = styleExtra();
     String analyteResultsHeaders                                            = tableHeaderCells(verifyAnalyteName,verifyCt, verifyEndPt, verifyInterp, verifyAnalyteReason, verifyAnalyteResult);
     String analyteDetailHeader                                              = tableHeaderCells(verifyAnalyteDName, verifyPrbChk1, verifyPrbChk2,verifyPrbChk3, verifyPrbChkResult, verifyDerivPeak);
 
-    //Create the table header of Test Results
-    printWriter.print(htmlStarter);
-    printWriter.print(header);
-    printWriter.print(styleTable);
-    printWriter.print(styleRows);
-    printWriter.print(styleExtra);
-    printWriter.print("<table style=\"width:100%\">\r\n<tr>\r\n");
-    printWriter.print(tableHeaderCells);
-    printWriter.print("</tr>\r\n");
+    //Create the table header of Test Results    
+    String beginTable = beginTableCreation(htmlStarter,header,styleTable,styleRows,styleExtra,tableWidth,tableHeaderCells,endRow); 
+    printWriter.print(beginTable);
 
     /* Create cells with individual verification results
      * Iterates through the htmlList for each individual assay
      * 
      */
     for (int outerArray = 0; outerArray < htmlList.size(); outerArray++) {
-      printWriter.print("<tr>\r\n");
+      printWriter.print(beginRow);
       for (int innerArray = 0; innerArray < htmlList.get(outerArray).size(); innerArray++) {
         String cell = htmlList.get(outerArray).get(innerArray);
         if (cell.contains("Error.")) {
@@ -78,10 +76,10 @@ public class htmlCreator extends RevisedVerifyResultMethods
         } else
           printWriter.print(String.format("<td><pre>%s</pre></td>\r\n", cell));
       }
-      printWriter.print("</tr>\r\n");
+      printWriter.print(endRow);
     }
 
-    printWriter.print("</table>\r\n");
+    printWriter.print(endTable);
 
     /*
      * 
@@ -113,7 +111,7 @@ public class htmlCreator extends RevisedVerifyResultMethods
         
         //Start a new row once all 6 data points of analyte are checked
         if (count % 6 == 0 && count != 0) {
-          printWriter.print("</tr>\r\n");
+          printWriter.print(endRow);
         }
         String aCell = htmlAnalyte.get(val).get(count);
         if (aCell.contains("Error.")) {
@@ -121,8 +119,8 @@ public class htmlCreator extends RevisedVerifyResultMethods
         } else
           printWriter.print(String.format("<td><pre>%s</pre></td>\r\n", aCell));
       }
-      printWriter.print("</tr>\r\n");
-      printWriter.print("</table>\r\n");
+      printWriter.print(endRow);
+      printWriter.print(endTable);
 
       //Create the table for analyte details verification
       printWriter.print(String.format("<h4>%s</h4>\r\n", "Analyte Details Verification"));
@@ -145,7 +143,7 @@ public class htmlCreator extends RevisedVerifyResultMethods
        */
       for (int detailNum = 0; detailNum < htmlAnalyteD.get(val).size(); detailNum++) {
         if (detailNum % 6 == 0 && detailNum != 0) {
-          printWriter.print("</tr>\r\n");
+          printWriter.print(endRow);
         }
         String aCell = htmlAnalyteD.get(val).get(detailNum);
         if (aCell.contains("Error."))
@@ -154,8 +152,8 @@ public class htmlCreator extends RevisedVerifyResultMethods
           printWriter.print(String.format("<td><pre>%s</pre></td>\r\n", aCell));
 
       }
-      printWriter.print("</tr>\r\n");
-      printWriter.print("</table>\r\n");
+      printWriter.print(endRow);
+      printWriter.print(endTable);
     }
 
     //Finish the html code
@@ -168,7 +166,7 @@ public class htmlCreator extends RevisedVerifyResultMethods
   private String path(String document)
   {
     return String.format(
-        "C:\\Users\\nelson.scott\\Perforce\\sw_quality_nscott\\swEngDepot\\Scripts\\SilkTest\\DX Automation\\GeneXpertUiAuto\\%s.html",
+        "C:\\Users\\nelson.scott\\gitDx\\GeneXpertUiAuto\\%s.html",
         document);
   }
   private String htmlStarter()
@@ -210,7 +208,17 @@ public class htmlCreator extends RevisedVerifyResultMethods
     return "tr:nth-child(even) { \r\n background-color: #eee; \r\n } \r\n tr:nth-child(odd) { \r\n background-color: #fff; \r\n } \r\n </style> \r\n";
   }
   
-  
+  private String beginTableCreation(String...args)
+  {
+    String concat = "";
+    
+    for(String arg: args)
+    {
+      concat = concat.concat(arg);
+    }
+    
+    return concat;
+  }
   
   
 }

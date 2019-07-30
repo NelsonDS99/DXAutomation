@@ -113,11 +113,12 @@ public class ExcelMethods extends ApplicationFunctions
 
           if (colNum == 3 || colNum == 9 || colNum == 10 || colNum == 11) {
             String convert = row.getCell(colNum).toString();
-            analyteDetail.add(Integer.toString(converter(convert)));
-          } else {
-            analyteDetail.add(row.getCell(colNum).toString());
-
+            analyteDetail.add(String.format("%.0f",converter(convert)));
+          } else if (colNum == 2) {
+            analyteDetail.add(String.format("%.1f",converter(row.getCell(colNum).toString())));
           }
+          else
+            analyteDetail.add(row.getCell(colNum).toString());
         }
         analyteDataMap.put(row.getCell(0).toString(), analyteDetail);
         analyteDetail = new ArrayList<String>();
@@ -198,7 +199,7 @@ public class ExcelMethods extends ApplicationFunctions
     Row row = sheet.getRow(start);
 
     while (key.equals(row.getCell(0).toString())) {
-      resultPos.add(converter(row.getCell(7).toString()));
+      resultPos.add((int)converter(row.getCell(7).toString()));
       start++;
       row = sheet.getRow(start);
     }
@@ -285,17 +286,19 @@ public class ExcelMethods extends ApplicationFunctions
     return -1;
   }
 
-  private int converter (String number)
+  private double converter (String number)
   {
     if (number != null) {
       try {
-        float exNumber = Float.parseFloat(number);
-        int integer = (int) Math.round(exNumber);
-        return integer;
+        double d;
+        d = Double.parseDouble(number);
+       // integer = Math.round(integer);
+        return d;
       } catch (NumberFormatException e) {
         logInfo("Cannot turn into a number: " + number);
       }
     }
+    logInfo(number + " "); 
     return 0;
   }
 

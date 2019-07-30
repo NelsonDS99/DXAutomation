@@ -46,6 +46,7 @@ Expected Assay Name: OTC-01b</pre></td>
 <td><pre>Actual Text: 
 INVALID 
 Expected Text: INVALID
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #DCDCDC; color: #000000 }
 </pre></td>
@@ -67,26 +68,37 @@ Expected Assay Name: OTC-01a</pre></td>
 <td><pre>Actual Text: 
 1DELTA Ct organism UNRESOLVED 
 Expected Text: 1DELTA Ct organism UNRESOLVED
+
 Actual Text: 1Semi-Quant organism POSITIVE LOW 
 Expected Text: 1Semi-Quant organism POSITIVE LOW
+
 Actual Text: 1BASIC organism PRESUMPTIVE POS 
 Expected Text: 1BASIC organism PRESUMPTIVE POS
+
 Actual Text: 2Semi-Quant organism POSITIVE HIGH 
 Expected Text: 2Semi-Quant organism POSITIVE HIGH
+
 Actual Text: 2BASIC organism HOMOZYGOTE MUTANT 
 Expected Text: 2BASIC organism HOMOZYGOTE MUTANT
+
 Actual Text: 3Semi-Quant organism POSITIVE MEDIUM 
 Expected Text: 3Semi-Quant organism POSITIVE MEDIUM
+
 Actual Text: 3BASIC organism HOMOZYGOUS NORMAL 
 Expected Text: 3BASIC organism HOMOZYGOUS NORMAL
+
 Actual Text: 3DELTA Ct organism INDETERMINATE 
 Expected Text: 3DELTA Ct organism INDETERMINATE
+
 Actual Text: 4BASIC organism PRESUMPTIVE NEG 
 Expected Text: 4BASIC organism PRESUMPTIVE NEG
+
 Actual Text: 4Semi-Quant organism NEGATIVE 
 Expected Text: 4Semi-Quant organism NEGATIVE
+
 Actual Text: 4DELTA Ct organism POSSIBLE 
 Expected Text: 4DELTA Ct organism POSSIBLE
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #DCDCDC; color: #000000 }
 Actual BC: tr.row1 { background-color: #FF0000; color: #FFFFFF }
@@ -118,6 +130,7 @@ Expected Assay Name: OTC-01b</pre></td>
 <td><pre>Actual Text: 
 REPEAT TEST 
 Expected Text: REPEAT TEST
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #CCFFFF; color: #000000 }
 </pre></td>
@@ -139,52 +152,76 @@ Expected Assay Name: OTC-04</pre></td>
 <td><pre>Actual Text: 
 1Semi-Quant Table POSITIVE LOW 
 Expected Text: 1Semi-Quant Table POSITIVE LOW
+
 Actual Text: 1BASIC Table PRESUMPTIVE POS 
 Expected Text: 1BASIC Table PRESUMPTIVE POS
+
 Actual Text: 2Semi-Quant Table POSITIVE HIGH 
 Expected Text: 2Semi-Quant Table POSITIVE HIGH
+
 Actual Text: 2BASIC Table HOMOZYGOTE MUTANT 
 Expected Text: 2BASIC Table HOMOZYGOTE MUTANT
+
 Actual Text: 3Semi-Quant Table POSITIVE MEDIUM 
 Expected Text: 3Semi-Quant Table POSITIVE MEDIUM
+
 Actual Text: 3BASIC Table HOMOZYGOUS NORMAL 
 Expected Text: 3BASIC Table HOMOZYGOUS NORMAL
+
 Actual Text: 4BASIC Table PRESUMPTIVE NEG 
 Expected Text: 4BASIC Table PRESUMPTIVE NEG
+
 Actual Text: 4Semi-Quant Table NEGATIVE 
 Expected Text: 4Semi-Quant Table NEGATIVE
+
 Actual Text: Flu H3-HA Table POSITIVE HIGH 
 Expected Text: Flu H3-HA Table POSITIVE HIGH
+
 Actual Text: Flu-1 Flu-2 Table POSITIVE MEDIUM 
 Expected Text: Flu-1 Flu-2 Table POSITIVE MEDIUM
+
 Actual Text: BasicTableA HOMOZYGOTE NORMAL 
 Expected Text: BasicTableA HOMOZYGOTE NORMAL
+
 Actual Text: DELTA Ct Organism A UNRESOLVED 
 Expected Text: DELTA Ct Organism A UNRESOLVED
+
 Actual Text: 1Semi-Quant Rules POSITIVE LOW 
 Expected Text: 1Semi-Quant Rules POSITIVE LOW
+
 Actual Text: 1BASIC Rules PRESUMPTIVE POS 
 Expected Text: 1BASIC Rules PRESUMPTIVE POS
+
 Actual Text: 2Semi-Quant Rules POSITIVE HIGH 
 Expected Text: 2Semi-Quant Rules POSITIVE HIGH
+
 Actual Text: 2BASIC Rules HOMOZYGOTE MUTANT 
 Expected Text: 2BASIC Rules HOMOZYGOTE MUTANT
+
 Actual Text: 3Semi-Quant Rules POSITIVE MEDIUM 
 Expected Text: 3Semi-Quant Rules POSITIVE MEDIUM
+
 Actual Text: 3BASIC Rules HOMOZYGOUS NORMAL 
 Expected Text: 3BASIC Rules HOMOZYGOUS NORMAL
+
 Actual Text: 4BASIC Rules PRESUMPTIVE NEG 
 Expected Text: 4BASIC Rules PRESUMPTIVE NEG
+
 Actual Text: 4Semi-Quant Rules NEGATIVE 
 Expected Text: 4Semi-Quant Rules NEGATIVE
+
 Actual Text: Flu H3-HA Rules POSITIVE HIGH 
 Expected Text: Flu H3-HA Rules POSITIVE HIGH
+
 Actual Text: Flu-1 Flu-2 Rules POSITIVE MEDIUM 
 Expected Text: Flu-1 Flu-2 Rules POSITIVE MEDIUM
+
 Actual Text: BasicRulesA HOMOZYGOTE NORMAL 
 Expected Text: BasicRulesA HOMOZYGOTE NORMAL
+
 Actual Text: DELTA Ct Organism B UNRESOLVED 
 Expected Text: DELTA Ct Organism B UNRESOLVED
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #FF0000; color: #FFFFFF }
 Actual BC: tr.row1 { background-color: #00E600; color: #FFFFFF }
@@ -229,28 +266,40 @@ Expected Assay Name: OTC-01a</pre></td>
 <td><pre>Actual Text: 
 1DELTA Ct organism DETECTED 
 Expected Text: 1DELTA Ct organism DETECTED
+
 Actual Text: 1Semi-Quant organism POSITIVE LOW 
 Expected Text: 1Semi-Quant organism POSITIVE LOW
+
 Actual Text: 1BASIC organism HOMOZYGOUS NORMAL 
 Expected Text: 1BASIC organism HOMOZYGOUS NORMAL
+
 Actual Text: 2Semi-Quant organism ? 
 Expected Text: 2Semi-Quant organism ?
+
 Actual Text: 2DELTA Ct organism NOT DETECTED 
 Expected Text: 2DELTA Ct organism NOT DETECTED
+
 Actual Text: 2BASIC organism WILDTYPE 
 Expected Text: 2BASIC organism WILDTYPE
+
 Actual Text: 3Semi-Quant organism POSITIVE MEDIUM 
 Expected Text: 3Semi-Quant organism POSITIVE MEDIUM
+
 Actual Text: 3BASIC organism HETEROZYGOUS 
 Expected Text: 3BASIC organism HETEROZYGOUS
+
 Actual Text: 3DELTA Ct organism INDETERMINATE 
 Expected Text: 3DELTA Ct organism INDETERMINATE
+
 Actual Text: 4BASIC organism MUTANT TYPE 
 Expected Text: 4BASIC organism MUTANT TYPE
+
 Actual Text: 4Semi-Quant organism POSITIVE VERY LOW 
 Expected Text: 4Semi-Quant organism POSITIVE VERY LOW
+
 Actual Text: 4DELTA Ct organism PROBABLE 
 Expected Text: 4DELTA Ct organism PROBABLE
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #FF0000; color: #FFFFFF }
 Actual BC: tr.row1 { background-color: #FF0000; color: #FFFFFF }
@@ -285,10 +334,13 @@ Expected Assay Name: OTC-03</pre></td>
 <td><pre>Actual Text: 
 Basic24AnalyteORG POSITIVE 
 Expected Text: Basic24AnalyteORG POSITIVE
+
 Actual Text: SemiQnt24AnalyteORG DETECTED HIGH 
 Expected Text: SemiQnt24AnalyteORG DETECTED HIGH
+
 Actual Text: DeltaCt24AnalyteORG DETECTED 
 Expected Text: DeltaCt24AnalyteORG DETECTED
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #FF0000; color: #FFFFFF }
 Actual BC: tr.row1 { background-color: #FF0000; color: #FFFFFF }
@@ -314,10 +366,13 @@ Expected Assay Name: OTC-03</pre></td>
 <td><pre>Actual Text: 
 Basic24AnalyteORG POSITIVE 
 Expected Text: Basic24AnalyteORG POSITIVE
+
 Actual Text: SemiQnt24AnalyteORG DETECTED HIGH 
 Expected Text: SemiQnt24AnalyteORG DETECTED HIGH
+
 Actual Text: DeltaCt24AnalyteORG INDETERMINATE 
 Expected Text: DeltaCt24AnalyteORG INDETERMINATE
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #FF0000; color: #FFFFFF }
 Actual BC: tr.row1 { background-color: #FF0000; color: #FFFFFF }
@@ -342,8 +397,10 @@ Expected Assay Name: OTC-02</pre></td>
 <td><pre>Actual Text: 
 MTB POSITIVE LOW 
 Expected Text: MTB POSITIVE LOW
+
 Actual Text: Rif Resistance NOT DETECTED 
 Expected Text: Rif Resistance NOT DETECTED
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #FF0000; color: #FFFFFF }
 Actual BC: tr.row1 { background-color: #00E600; color: #FFFFFF }
@@ -368,10 +425,13 @@ Expected Assay Name: OTC-03</pre></td>
 <td><pre>Actual Text: 
 Basic24AnalyteORG POSITIVE 
 Expected Text: Basic24AnalyteORG POSITIVE
+
 Actual Text: SemiQnt24AnalyteORG DETECTED HIGH 
 Expected Text: SemiQnt24AnalyteORG DETECTED HIGH
+
 Actual Text: DeltaCt24AnalyteORG EQUIVOCAL 
 Expected Text: DeltaCt24AnalyteORG EQUIVOCAL
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #FF0000; color: #FFFFFF }
 Actual BC: tr.row1 { background-color: #FF0000; color: #FFFFFF }
@@ -395,8 +455,10 @@ Expected Assay Name: OTC-02</pre></td>
 <td><pre>Actual Text: 
 MTB POSITIVE HIGH 
 Expected Text: MTB POSITIVE HIGH
+
 Actual Text: Rif Resistance NOT DETECTED 
 Expected Text: Rif Resistance NOT DETECTED
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #FF0000; color: #FFFFFF }
 Actual BC: tr.row1 { background-color: #00E600; color: #FFFFFF }
@@ -421,10 +483,13 @@ Expected Assay Name: OTC-03</pre></td>
 <td><pre>Actual Text: 
 Basic24AnalyteORG POSITIVE 
 Expected Text: Basic24AnalyteORG POSITIVE
+
 Actual Text: SemiQnt24AnalyteORG DETECTED HIGH 
 Expected Text: SemiQnt24AnalyteORG DETECTED HIGH
+
 Actual Text: DeltaCt24AnalyteORG EQUIVOCAL 
 Expected Text: DeltaCt24AnalyteORG EQUIVOCAL
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #FF0000; color: #FFFFFF }
 Actual BC: tr.row1 { background-color: #FF0000; color: #FFFFFF }
@@ -450,10 +515,13 @@ Expected Assay Name: OTC-03</pre></td>
 <td><pre>Actual Text: 
 Basic24AnalyteORG MUST CONFIRM 
 Expected Text: Basic24AnalyteORG MUST CONFIRM
+
 Actual Text: SemiQnt24AnalyteORG MUST CONFIRM 
 Expected Text: SemiQnt24AnalyteORG MUST CONFIRM
+
 Actual Text: DeltaCt24AnalyteORG EQUIVOCAL 
 Expected Text: DeltaCt24AnalyteORG EQUIVOCAL
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #FFFF00; color: #000000 }
 Actual BC: tr.row1 { background-color: #FFFFFF; color: #000000 }
@@ -479,10 +547,13 @@ Expected Assay Name: OTC-03</pre></td>
 <td><pre>Actual Text: 
 Basic24AnalyteORG INDETERMINATE 
 Expected Text: Basic24AnalyteORG INDETERMINATE
+
 Actual Text: SemiQnt24AnalyteORG INDETERMINATE 
 Expected Text: SemiQnt24AnalyteORG INDETERMINATE
+
 Actual Text: DeltaCt24AnalyteORG EQUIVOCAL 
 Expected Text: DeltaCt24AnalyteORG EQUIVOCAL
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #FFFFFF; color: #000000 }
 Actual BC: tr.row1 { background-color: #CCFFFF; color: #000000 }
@@ -508,10 +579,13 @@ Expected Assay Name: OTC-03</pre></td>
 <td><pre>Actual Text: 
 Basic24AnalyteORG NEGATIVE 
 Expected Text: Basic24AnalyteORG NEGATIVE
+
 Actual Text: SemiQnt24AnalyteORG NOT DETECTED 
 Expected Text: SemiQnt24AnalyteORG NOT DETECTED
+
 Actual Text: DeltaCt24AnalyteORG EQUIVOCAL 
 Expected Text: DeltaCt24AnalyteORG EQUIVOCAL
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #00E600; color: #FFFFFF }
 Actual BC: tr.row1 { background-color: #00E600; color: #FFFFFF }
@@ -537,10 +611,13 @@ Expected Assay Name: OTC-03</pre></td>
 <td><pre>Actual Text: 
 Basic24AnalyteORG UNRESOLVED 
 Expected Text: Basic24AnalyteORG UNRESOLVED
+
 Actual Text: SemiQnt24AnalyteORG INADEQUATE SAMPLE 
 Expected Text: SemiQnt24AnalyteORG INADEQUATE SAMPLE
+
 Actual Text: DeltaCt24AnalyteORG EQUIVOCAL 
 Expected Text: DeltaCt24AnalyteORG EQUIVOCAL
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #DCDCDC; color: #000000 }
 Actual BC: tr.row1 { background-color: #FFFF00; color: #000000 }
@@ -566,10 +643,13 @@ Expected Assay Name: OTC-03</pre></td>
 <td><pre>Actual Text: 
 Basic24AnalyteORG ? 
 Expected Text: Basic24AnalyteORG ?
+
 Actual Text: SemiQnt24AnalyteORG ? 
 Expected Text: SemiQnt24AnalyteORG ?
+
 Actual Text: DeltaCt24AnalyteORG EQUIVOCAL 
 Expected Text: DeltaCt24AnalyteORG EQUIVOCAL
+
 </pre></td>
 <td><pre>Actual BC: tr.row0 { background-color: #CCFFFF; color: #000000 }
 Actual BC: tr.row1 { background-color: #CCFFFF; color: #000000 }
@@ -596,7 +676,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -694,7 +774,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -793,7 +873,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -891,7 +971,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -990,7 +1070,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -1088,7 +1168,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -1187,7 +1267,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -1333,7 +1413,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -1480,7 +1560,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -1578,7 +1658,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -1677,7 +1757,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -2003,7 +2083,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -2330,7 +2410,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -2656,7 +2736,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -2983,7 +3063,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -3081,7 +3161,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -3180,7 +3260,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -3384,9 +3464,8 @@ Expected Reason: No Ct </pre></td>
 Expected Analyte Reason: INVALID</pre></td>
 </tr>
 <td><pre>Analyte Names are correct: A17</pre></td>
-<td style="background-color:#FF0000"><pre>Error.
-Actual Ct: 21.4 
-Expected Ct: 21.400000000000002</pre></td>
+<td><pre>Actual Ct: 21.4 
+Expected Ct: 21.4</pre></td>
 <td><pre>Actual EndPt: 150 
 Expected EndPt: 150</pre></td>
 <td><pre>Actual Interpretation Result: NEG 
@@ -3508,7 +3587,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -3835,7 +3914,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -3933,7 +4012,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -4032,7 +4111,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -4358,7 +4437,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -4685,7 +4764,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -5011,7 +5090,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -5338,7 +5417,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -5664,7 +5743,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -5991,7 +6070,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -6317,7 +6396,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -6644,7 +6723,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -6847,9 +6926,8 @@ Expected Reason: No Ct </pre></td>
 Expected Analyte Reason: INVALID</pre></td>
 </tr>
 <td><pre>Analyte Names are correct: A17</pre></td>
-<td style="background-color:#FF0000"><pre>Error.
-Actual Ct: 21.4 
-Expected Ct: 21.400000000000002</pre></td>
+<td><pre>Actual Ct: 21.4 
+Expected Ct: 21.4</pre></td>
 <td><pre>Actual EndPt: 150 
 Expected EndPt: 150</pre></td>
 <td><pre>Actual Interpretation Result: NEG 
@@ -6971,7 +7049,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
@@ -7298,7 +7376,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%">
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
@@ -7624,7 +7702,7 @@ border: 1px solid green;
  background-color: #fff; 
  } 
  </style> 
-<table style = "width:100%"
+<table style="width:100%">
 <tr>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>

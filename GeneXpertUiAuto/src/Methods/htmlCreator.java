@@ -60,7 +60,8 @@ public class htmlCreator extends RevisedVerifyResultMethods
     String analyteDetailHeader                                              = tableHeaderCells(verifyAnalyteDName, verifyPrbChk1, verifyPrbChk2,verifyPrbChk3, verifyPrbChkResult, verifyDerivPeak);
 
     //Create the table header of Test Results    
-    String beginTable = beginTableCreation(htmlStarter,header,styleTable,styleRows,styleExtra,tableWidth,tableHeaderCells,endRow); 
+    printWriter.print(htmlStarter);
+    String beginTable = beginTableCreation(header,styleTable,styleRows,styleExtra,tableWidth,tableHeaderCells,endRow); 
     printWriter.print(beginTable);
 
     /* Create cells with individual verification results
@@ -90,10 +91,8 @@ public class htmlCreator extends RevisedVerifyResultMethods
     for (String val : htmlAnalyte.keySet()) {
       printWriter.print(String.format("<h3><u>%s</u></h3>\r\n", val));
       printWriter.print(String.format("<h4>%s</h4>\r\n", "Analyte Results Verification"));
-      printWriter.print(styleTable);
-      printWriter.print(styleRows);
-      printWriter.print(styleExtra);
-      printWriter.print("<table style = \"width:100%\">\r\n<tr>\r\n");
+      beginTable = beginTableCreation(styleTable,styleRows,styleExtra,tableWidth);
+      printWriter.print(beginTable);
       printWriter.print(analyteResultsHeaders);
       printWriter.print("</tr>\r\n<tr>\r\n");
 
@@ -124,10 +123,7 @@ public class htmlCreator extends RevisedVerifyResultMethods
 
       //Create the table for analyte details verification
       printWriter.print(String.format("<h4>%s</h4>\r\n", "Analyte Details Verification"));
-      printWriter.print(styleTable);
-      printWriter.print(styleRows);
-      printWriter.print(styleExtra);
-      printWriter.print("<table style = \"width:100%\"\r\n<tr>\r\n");
+      printWriter.print(beginTable);
       printWriter.print(analyteDetailHeader);
       printWriter.print("</tr>\r\n<tr>\r\n");
       
@@ -166,7 +162,7 @@ public class htmlCreator extends RevisedVerifyResultMethods
   private String path(String document)
   {
     return String.format(
-        "C:\\Users\\nelson.scott\\gitDx\\GeneXpertUiAuto\\%s.html",
+        "C:\\Users\\nelson.scott\\gitDx\\GeneXpertUiAuto\\%s.txt",
         document);
   }
   private String htmlStarter()

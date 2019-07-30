@@ -1,0 +1,51 @@
+<ObjectMap version="1">
+  <ObjectMapEntry id="GeneXpert® Dx System" locator="/JFrame[@caption=&apos;GeneXpert® Dx System&apos;]">
+    <ObjectMapEntry id="About GeneXpert® Dx System" locator="//JMenuItem[@caption=&apos;About GeneXpert® Dx System&apos;]"/>
+    <ObjectMapEntry id="About GeneXpert® Dx System Dialog" locator="/JDialog[@caption=&apos;About GeneXpert® Dx System&apos;]">
+      <ObjectMapEntry id="Close" locator="//JButton[@caption=&apos;Close&apos;]"/>
+    </ObjectMapEntry>
+    <ObjectMapEntry id="Assay" locator="//JTextField[@priorlabel=&apos;Assay&apos;]"/>
+    <ObjectMapEntry id="Check Status" locator="//JToggleButton[@caption=&apos;Check Status&apos;]"/>
+    <ObjectMapEntry id="Create Test" locator="//JButton[@caption=&apos;Create Test&apos;]"/>
+    <ObjectMapEntry id="Create Test Dialog" locator="/JDialog[@caption=&apos;Create Test&apos;]">
+      <ObjectMapEntry id="Notes" locator="//JTextArea[@priorlabel=&apos;Notes&apos;]"/>
+      <ObjectMapEntry id="Patient ID" locator="//JTextField[@priorlabel=&apos;Patient ID&apos;]"/>
+      <ObjectMapEntry id="Sample ID" locator="//JTextField[@priorlabel=&apos;Sample ID&apos;]"/>
+      <ObjectMapEntry id="Scan Cartridge Barcode" locator="/JDialog[@caption=&apos;Scan Cartridge Barcode&apos;]">
+        <ObjectMapEntry id="Cancel" locator="//JButton[@caption=&apos;Cancel&apos;]"/>
+      </ObjectMapEntry>
+      <ObjectMapEntry id="Scan Patient ID Barcode" locator="/JDialog[@caption=&apos;Scan Patient ID Barcode&apos;]">
+        <ObjectMapEntry id="Cancel" locator="//JButton[@caption=&apos;Cancel&apos;]"/>
+      </ObjectMapEntry>
+      <ObjectMapEntry id="Scan Sample ID Barcode" locator="/JDialog[@caption=&apos;Scan Sample ID Barcode&apos;]">
+        <ObjectMapEntry id="Cancel" locator="//JButton[@caption=&apos;Cancel&apos;]"/>
+      </ObjectMapEntry>
+    </ObjectMapEntry>
+    <ObjectMapEntry id="Define Assays" locator="//JToggleButton[@caption=&apos;Define Assays&apos;]"/>
+    <ObjectMapEntry id="Define Assays Dialog" locator="/JDialog[@caption=&apos;Define Assays&apos;]">
+      <ObjectMapEntry id="OK" locator="//JButton[@caption=&apos;OK&apos;]"/>
+    </ObjectMapEntry>
+    <ObjectMapEntry id="Define Graphs" locator="//JToggleButton[@caption=&apos;Define Graphs&apos;]"/>
+    <ObjectMapEntry id="Login" locator="//JMenuItem[@caption=&apos;Login&apos;]"/>
+    <ObjectMapEntry id="Login Dialog" locator="/JDialog[@caption=&apos;Login&apos;]">
+      <ObjectMapEntry id="Login" locator="/JDialog[@caption=&apos;Login&apos;]">
+        <ObjectMapEntry id="OK" locator="//JButton[@caption=&apos;OK&apos;]"/>
+      </ObjectMapEntry>
+      <ObjectMapEntry id="OK" locator="//JButton[@caption=&apos;OK&apos;]"/>
+      <ObjectMapEntry id="Password" locator="//JPasswordField[@priorlabel=&apos;Password&apos;]"/>
+      <ObjectMapEntry id="User Name" locator="//JTextField[@priorlabel=&apos;User Name&apos;]"/>
+    </ObjectMapEntry>
+    <ObjectMapEntry id="New" locator="//JButton[@caption=&apos;New&apos;]"/>
+    <ObjectMapEntry id="Patient Report" locator="//JMenuItem[@caption=&apos;Patient Report&apos;]"/>
+    <ObjectMapEntry id="Patient Report Dialog" locator="/JDialog[@caption=&apos;Patient Report&apos;]">
+      <ObjectMapEntry id="Patient ID" locator="//JTextField[@priorlabel=&apos;Patient ID:&apos;]"/>
+    </ObjectMapEntry>
+    <ObjectMapEntry id="SplitPane" locator="//JSplitPane"/>
+    <ObjectMapEntry id="Stop Test" locator="//JButton[@caption=&apos;Stop Test&apos;]"/>
+    <ObjectMapEntry id="Stop Test Dialog" locator="/JDialog[@caption=&apos;Stop Test&apos;]">
+      <ObjectMapEntry id="Cancel" locator="//JButton[@caption=&apos;Cancel&apos;]"/>
+    </ObjectMapEntry>
+    <ObjectMapEntry id="Table" locator="//JTable"/>
+    <ObjectMapEntry id="View Results" locator="//JToggleButton[@caption=&apos;View Results&apos;]"/>
+  </ObjectMapEntry>
+</ObjectMap>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Verification Results</title>
+</head>
+<body>
+<style>
+table {
+ border-collapse: collapse; 
+ } 
+th,td {
+border: 1px solid green; 
+ } 
+ tr:nth-child(even) { 
+ background-color: #eee; 
+ } 
+ tr:nth-child(odd) { 
+ background-color: #fff; 
+ } 
+ </style> 
+<table style="width:75%">
+<tr>
+<th>Sample ID</th>
+<th>Verification Sample ID</th>
+<th>Verification Assay Name</th>
+<th>Verification Status</th>
+<th>Verification Error Status</th>
+</tr>
+<tr>
+<td>OTC-01a.A1</td>
+<td>Actual Result: OTC-01a.A1 
+Expected Result OTC-01a.A1</td>
+<td>Actual Assay Name: OTC-01a 
+ Expected Assay Name   OTC-01a</td>
+<td style="background-color:#FF0000">Error. 
+ Actual Status: Does Not Exist 
+ Expected Status: Done </td>
+<td>Actual Error Status: OK 
+ Expected Error Status: OK</td>
+</tr>
+<tr>
+<td>OTC-01b.A2</td>
+<td>Actual Result: OTC-01b.A2 
+Expected Result OTC-01b.A2</td>
+<td>Actual Assay Name: OTC-01b 
+ Expected Assay Name   OTC-01b</td>
+<td>Actual Status: Done 
+ Expected Status: Done</td>
+<td>Actual Error Status: OK 
+ Expected Error Status: OK</td>
+</tr>
+<tr>
+<td>OTC-01b.A1</td>
+<td>Actual Result: OTC-01b.A1 
+Expected Result OTC-01b.A1</td>
+<td>Actual Assay Name: OTC-01b 
+ Expected Assay Name   OTC-01b</td>
+<td>Actual Status: Done 
+ Expected Status: Done</td>
+<td>Actual Error Status: OK 
+ Expected Error Status: OK</td>
+</tr>
+<tr>
+<td>OTC-04.A1</td>
+<td>Actual Result: OTC-04.A1 
+Expected Result OTC-04.A1</td>
+<td>Actual Assay Name: OTC-04 
+ Expected Assay Name   OTC-04</td>
+<td>Actual Status: Done 
+ Expected Status: Done</td>
+<td>Actual Error Status: OK 
+ Expected Error Status: OK</td>
+</tr>
+<tr>
+<td>OTC-01a.A2</td>
+<td>Actual Result: OTC-01a.A2 
+Expected Result OTC-01a.A2</td>
+<td>Actual Assay Name: OTC-01a 
+ Expected Assay Name   OTC-01a</td>
+<td>Actual Status: Done 
+ Expected Status: Done</td>
+<td>Actual Error Status: OK 
+ Expected Error Status: OK</td>
+</tr>
+<tr>
+<td>OTC-03.A1</td>
+<td>Actual Result: OTC-03.A1 
+Expected Result OTC-03.A1</td>
+<td>Actual Assay Name: OTC-03 
+ Expected Assay Name   OTC-03</td>
+<td style="background-color:#FF0000">Error. 
+ Actual Status: Does Not Exist 
+ Expected Status: NA </td>
+<td style="background-color:#FF0000">Error. 
+Actual Error Status: Does Not Exist 
+ Expected Error Status: NA</td>
+</tr>
+<tr>
+<td>OTC-02.A1</td>
+<td>Actual Result: OTC-02.A1 
+Expected Result OTC-02.A1</td>
+<td>Actual Assay Name: OTC-02 
+ Expected Assay Name   OTC-02</td>
+<td style="background-color:#FF0000">Error. 
+ Actual Status: Does Not Exist 
+ Expected Status: Done </td>
+<td>Actual Error Status: OK 
+ Expected Error Status: OK</td>
+</tr>
+<tr>
+<td>OTC-03.A2</td>
+<td>Actual Result: OTC-03.A2 
+Expected Result OTC-03.A2</td>
+<td>Actual Assay Name: OTC-03 
+ Expected Assay Name   OTC-03</td>
+<td style="background-color:#FF0000">Error. 
+ Actual Status: Does Not Exist 
+ Expected Status: NA </td>
+<td style="background-color:#FF0000">Error. 
+Actual Error Status: Does Not Exist 
+ Expected Error Status: NA</td>
+</tr>
+<tr>
+<td>OTC-02.A2</td>
+<td>Actual Result: OTC-02.A2 
+Expected Result OTC-02.A2</td>
+<td>Actual Assay Name: OTC-02 
+ Expected Assay Name   OTC-02</td>
+<td>Actual Status: Done 
+ Expected Status: Done</td>
+<td>Actual Error Status: OK 
+ Expected Error Status: OK</td>
+</tr>
+<tr>
+<td>OTC-03.A3</td>
+<td>Actual Result: OTC-03.A3 
+Expected Result OTC-03.A3</td>
+<td>Actual Assay Name: OTC-03 
+ Expected Assay Name   OTC-03</td>
+<td style="background-color:#FF0000">Error. 
+ Actual Status: Does Not Exist 
+ Expected Status: NA </td>
+<td style="background-color:#FF0000">Error. 
+Actual Error Status: Does Not Exist 
+ Expected Error Status: NA</td>
+</tr>
+<tr>
+<td>OTC-03.A4</td>
+<td>Actual Result: OTC-03.A4 
+Expected Result OTC-03.A4</td>
+<td>Actual Assay Name: OTC-03 
+ Expected Assay Name   OTC-03</td>
+<td style="background-color:#FF0000">Error. 
+ Actual Status: Does Not Exist 
+ Expected Status: NA </td>
+<td style="background-color:#FF0000">Error. 
+Actual Error Status: Does Not Exist 
+ Expected Error Status: NA</td>
+</tr>
+<tr>
+<td>OTC-03.A5</td>
+<td>Actual Result: OTC-03.A5 
+Expected Result OTC-03.A5</td>
+<td>Actual Assay Name: OTC-03 
+ Expected Assay Name   OTC-03</td>
+<td style="background-color:#FF0000">Error. 
+ Actual Status: Does Not Exist 
+ Expected Status: NA </td>
+<td style="background-color:#FF0000">Error. 
+Actual Error Status: Does Not Exist 
+ Expected Error Status: NA</td>
+</tr>
+<tr>
+<td>OTC-03.A6</td>
+<td>Actual Result: OTC-03.A6 
+Expected Result OTC-03.A6</td>
+<td>Actual Assay Name: OTC-03 
+ Expected Assay Name   OTC-03</td>
+<td style="background-color:#FF0000">Error. 
+ Actual Status: Does Not Exist 
+ Expected Status: NA </td>
+<td style="background-color:#FF0000">Error. 
+Actual Error Status: Does Not Exist 
+ Expected Error Status: NA</td>
+</tr>
+<tr>
+<td>OTC-03.A7</td>
+<td>Actual Result: OTC-03.A7 
+Expected Result OTC-03.A7</td>
+<td>Actual Assay Name: OTC-03 
+ Expected Assay Name   OTC-03</td>
+<td style="background-color:#FF0000">Error. 
+ Actual Status: Does Not Exist 
+ Expected Status: NA </td>
+<td style="background-color:#FF0000">Error. 
+Actual Error Status: Does Not Exist 
+ Expected Error Status: NA</td>
+</tr>
+<tr>
+<td>OTC-03.A8</td>
+<td>Actual Result: OTC-03.A8 
+Expected Result OTC-03.A8</td>
+<td>Actual Assay Name: OTC-03 
+ Expected Assay Name   OTC-03</td>
+<td style="background-color:#FF0000">Error. 
+ Actual Status: Does Not Exist 
+ Expected Status: NA </td>
+<td style="background-color:#FF0000">Error. 
+Actual Error Status: Does Not Exist 
+ Expected Error Status: NA</td>
+</tr>
+<tr>
+<td>OTC-03.A9</td>
+<td>Actual Result: OTC-03.A9 
+Expected Result OTC-03.A9</td>
+<td>Actual Assay Name: OTC-03 
+ Expected Assay Name   OTC-03</td>
+<td style="background-color:#FF0000">Error. 
+ Actual Status: Does Not Exist 
+ Expected Status: NA </td>
+<td style="background-color:#FF0000">Error. 
+Actual Error Status: Does Not Exist 
+ Expected Error Status: NA</td>
+</tr>
+</table>
+</body>
+</html>

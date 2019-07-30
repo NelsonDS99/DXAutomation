@@ -113,11 +113,10 @@ public class ExcelMethods extends ApplicationFunctions
 
           if (colNum == 3 || colNum == 9 || colNum == 10 || colNum == 11) {
             String convert = row.getCell(colNum).toString();
-            analyteDetail.add(String.format("%.0f",converter(convert)));
+            analyteDetail.add(String.format("%.0f", converter(convert)));
           } else if (colNum == 2) {
-            analyteDetail.add(String.format("%.1f",converter(row.getCell(colNum).toString())));
-          }
-          else
+            analyteDetail.add(String.format("%.1f", converter(row.getCell(colNum).toString())));
+          } else
             analyteDetail.add(row.getCell(colNum).toString());
         }
         analyteDataMap.put(row.getCell(0).toString(), analyteDetail);
@@ -199,7 +198,7 @@ public class ExcelMethods extends ApplicationFunctions
     Row row = sheet.getRow(start);
 
     while (key.equals(row.getCell(0).toString())) {
-      resultPos.add((int)converter(row.getCell(7).toString()));
+      resultPos.add((int) converter(row.getCell(7).toString()));
       start++;
       row = sheet.getRow(start);
     }
@@ -292,13 +291,12 @@ public class ExcelMethods extends ApplicationFunctions
       try {
         double d;
         d = Double.parseDouble(number);
-       // integer = Math.round(integer);
         return d;
       } catch (NumberFormatException e) {
         logInfo("Cannot turn into a number: " + number);
       }
     }
-    logInfo(number + " "); 
+    // Some of the expected data is NA or a non-number, translates to 0 in the GUI
     return 0;
   }
 

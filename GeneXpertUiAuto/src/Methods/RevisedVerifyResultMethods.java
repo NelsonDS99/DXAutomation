@@ -74,22 +74,22 @@ public class RevisedVerifyResultMethods extends ExcelMethods
 
     //Compare Sample ID
     if (expectedData.containsKey(leftSampleID)) {
-      returnVal.add(String.format("Actual ID: %s \nExpected ID: %s", leftSampleID, key));
+      returnVal.add(String.format("Actual ID:   %s \nExpected ID: %s", leftSampleID, key));
     } else
-      returnVal.add(String.format("Error. Actual ID: %s \n Expected ID:   %s", leftSampleID, key));
+      returnVal.add(String.format("Error. Actual ID:   %s \n Expected ID:   %s", leftSampleID, key));
     
     //Compare Assay Name
     if (exAssayName.equals(leftAssayName)) {
-      returnVal.add(String.format("Actual Assay Name: %s \nExpected Assay Name: %s", leftAssayName, exAssayName));
+      returnVal.add(String.format("Actual Assay Name:   %s \nExpected Assay Name: %s", leftAssayName, exAssayName));
     } else
       returnVal
-          .add(String.format("Error. \n Actual Assay Name  %s \nExpected Assay Name: %s", leftAssayName, exAssayName));
+          .add(String.format("Error. \n Actual Assay Name    %s \nExpected Assay Name: %s", leftAssayName, exAssayName));
 
     //Compare Status
     if (exLeftStatus.equals(leftStatus)) {
-      returnVal.add(String.format("Actual Status: %s \nExpected Status: %s", leftStatus, exLeftStatus));
+      returnVal.add(String.format("Actual Status:   %s \nExpected Status: %s", leftStatus, exLeftStatus));
     } else
-      returnVal.add(String.format("Error. \n Actual Status: %s \nExpected Status: %s ", leftStatus, exLeftStatus));
+      returnVal.add(String.format("Error. \n Actual Status:   %s \nExpected Status: %s ", leftStatus, exLeftStatus));
 
     return returnVal;
   }
@@ -111,9 +111,9 @@ public class RevisedVerifyResultMethods extends ExcelMethods
     String exAssayName = expectedData.get(key).get(2);
 
     if (exAssayName.equals(assayName)) {
-      resultVal = String.format("Actual Assay Name: %s \nExpected Assay Name: %s", assayName, exAssayName);
+      resultVal = String.format("Actual Assay Name:   %s \nExpected Assay Name: %s", assayName, exAssayName);
     } else
-      resultVal = String.format("Error.\nActual Assay Name: %s \nExpected Assay Name: %s", assayName, exAssayName);
+      resultVal = String.format("Error.\nActual Assay Name:   %s \nExpected Assay Name: %s", assayName, exAssayName);
 
     return resultVal;
   }
@@ -131,10 +131,10 @@ public class RevisedVerifyResultMethods extends ExcelMethods
     
     for (String iterator : sepGUIText) {
       if (iterator.trim().equals(resultText.get(0))) {
-        resultVal = resultVal.concat(String.format("Actual Text: %s \nExpected Text: %s\r\n", iterator, resultText.get(0)));
+        resultVal = resultVal.concat(String.format("Actual Text:   %s \nExpected Text: %s\r\n", iterator, resultText.get(0)));
       } else
         resultVal = resultVal
-            .concat(String.format("Error.\n Actual Text: %s \nExpected Text: %s\r\n", iterator, resultText.get(0)));
+            .concat(String.format("Error.\n Actual Text:   %s \nExpected Text: %s\r\n", iterator, resultText.get(0)));
 
       resultVal = resultVal.concat("\r\n");
       resultText.remove(0);
@@ -199,10 +199,10 @@ public class RevisedVerifyResultMethods extends ExcelMethods
 
     //Verify the error status
     if (exErrorStatus.equals(errorStatus)) {
-      returnVal.add(String.format("Actual Error Status: %s \nExpected Error Status: %s", errorStatus, exErrorStatus));
+      returnVal.add(String.format("Actual Error Status:   %s \nExpected Error Status: %s", errorStatus, exErrorStatus));
     } else
       returnVal.add(
-          String.format("Error. \nActual Error Status: %s \nExpected Error Status: %s", errorStatus, exErrorStatus));
+          String.format("Error. \nActual Error Status:   %s \nExpected Error Status: %s", errorStatus, exErrorStatus));
 
     return returnVal;
   }
@@ -229,57 +229,57 @@ public class RevisedVerifyResultMethods extends ExcelMethods
 
     // Compare Ct
     if (exCt.equals(analyteR.get(2))) {
-      resultVal.add(String.format("Actual Ct: %s \nExpected Ct: %s", analyteR.get(2), exCt));
+      resultVal.add(String.format("Actual Ct:   %s \nExpected Ct: %s", analyteR.get(2), exCt));
     } else
-      resultVal.add(String.format("Error.\nActual Ct: %s \nExpected Ct: %s", analyteR.get(2), exCt));
+      resultVal.add(String.format("Error.\nActual Ct:   %s \nExpected Ct: %s", analyteR.get(2), exCt));
 
     // Compare EndPt
     if (exEndPt.equals(analyteR.get(3))) {
-      resultVal.add(String.format("Actual EndPt: %s \nExpected EndPt: %s", analyteR.get(3), exEndPt));
+      resultVal.add(String.format("Actual EndPt:   %s \nExpected EndPt: %s", analyteR.get(3), exEndPt));
     } else
-      resultVal.add(String.format("Error.\nActual EndPt: %s \nExpected EndPt: %s", analyteR.get(3), exEndPt));
+      resultVal.add(String.format("Error.\nActual EndPt:   %s \nExpected EndPt: %s", analyteR.get(3), exEndPt));
 
     // Compare Interpretation Result
     if (exInterpretation.equals(analyteR.get(4))) {
-      resultVal.add(String.format("Actual Interpretation Result: %s \nExpected Interpretation Result: %s ",
+      resultVal.add(String.format("Actual Interpretation Result:   %s \nExpected Interpretation Result: %s ",
           analyteR.get(4), exInterpretation));
     } else
-      resultVal.add(String.format("Error.\n Actual Interpretation Result: %s \nExpected Interpretation Result: %s ",
+      resultVal.add(String.format("Error.\n Actual Interpretation Result:   %s \nExpected Interpretation Result: %s ",
           analyteR.get(4), exInterpretation));
 
     // Compare reason
    if (exReason.equals(analyteR.get(5))) {
-        resultVal.add(String.format("Actual Reason: %s \nExpected Reason: %s ", analyteR.get(5), exReason));
+        resultVal.add(String.format("Actual Reason:   %s \nExpected Reason: %s ", analyteR.get(5), exReason));
       } 
    else if (exReason.equals("NA"))
       {
         if(analyteR.get(5).equals(""))
         {
-          resultVal.add(String.format("Actual Reason: %s \nExpected Reason: %s", analyteR.get(5), exReason));
+          resultVal.add(String.format("*** \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
         }
         else
-          resultVal.add(String.format("Error. \nActual Reason: %s \nExpected Reason: %s", analyteR.get(5),exReason));
+          resultVal.add(String.format("Error. \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5),exReason));
       }
    else if(exReason.equals("No Ct"))
    {
      if(analyteR.get(5).equals(""))
      {
-       resultVal.add(String.format("Actual Reason %s \nExpected Reason: %s ", analyteR.get(5), exReason));
+       resultVal.add(String.format("Actual Reason   %s \nExpected Reason: %s ", analyteR.get(5), exReason));
      }
      else
-       resultVal.add(String.format("Error. \nActual Reason: %s \nExpected Reason: %s", analyteR.get(5),exReason));
+       resultVal.add(String.format("Error. \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5),exReason));
    }
    else
-     resultVal.add(String.format("Error.\nActual Reason: %s \nExpected Reason: %s", analyteR.get(5), exReason));
+     resultVal.add(String.format("Error.\nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
        
 
     // Compare Analyte Result
     if (exAnalyteResult.equals(analyteR.get(6))) {
       resultVal.add(
-          String.format("Actual Analyte Result: %s \nExpected Analyte Reason: %s", analyteR.get(6), exAnalyteResult));
+          String.format("Actual Analyte Result:   %s \nExpected Analyte Reason: %s", analyteR.get(6), exAnalyteResult));
 
     } else
-      resultVal.add(String.format("Error.\nActual Analyte Result: %s \nExpected Analyte Reason %s", analyteR.get(6),
+      resultVal.add(String.format("Error.\nActual Analyte Result:   %s \nExpected Analyte Reason %s", analyteR.get(6),
           exAnalyteResult));
 
     return resultVal;
@@ -313,36 +313,36 @@ public class RevisedVerifyResultMethods extends ExcelMethods
 
     // Compare PrbChk1
     if (exPrbChk1.equals(analyteD.get(2)) || exPrbChk1.equals("NA")) {
-      resultVal.add(String.format("Actual PrbChk1: %s \nExpected PrbChk1: %s", analyteD.get(2), exPrbChk1));
+      resultVal.add(String.format("Actual PrbChk1:   %s \nExpected PrbChk1: %s", analyteD.get(2), exPrbChk1));
     } else
-      resultVal.add(String.format("Error.\nActual PrbChk1: %s \nExpected PrbChk1: %s", analyteD.get(2), exPrbChk1));
+      resultVal.add(String.format("Error.\nActual PrbChk1:   %s \nExpected PrbChk1: %s", analyteD.get(2), exPrbChk1));
 
     // Compare PrbChk2
     if (exPrbChk2.equals(analyteD.get(3)) || exPrbChk2.equals("NA")) {
-      resultVal.add(String.format("Actual PrbChk2: %s \nExpected PrbChk2: %s", analyteD.get(3), exPrbChk2));
+      resultVal.add(String.format("Actual PrbChk2:   %s \nExpected PrbChk2: %s", analyteD.get(3), exPrbChk2));
     } else
-      resultVal.add(String.format("Error.\nActual PrbChk2: %s \nExpected PrbChk2: %s", analyteD.get(3), exPrbChk2));
+      resultVal.add(String.format("Error.\nActual PrbChk2:   %s \nExpected PrbChk2: %s", analyteD.get(3), exPrbChk2));
 
     // Compare PrbChk3
     if (exPrbChk3.equals(analyteD.get(4)) || exPrbChk3.equals("NA")) {
-      resultVal.add(String.format("Actual PrbChk3: %s \nExpected PrbChk3: %s", analyteD.get(4), exPrbChk3));
+      resultVal.add(String.format("Actual PrbChk3:   %s \nExpected PrbChk3: %s", analyteD.get(4), exPrbChk3));
     } else
-      resultVal.add(String.format("Error.\nActual PrbChk3: %s \nExpected PrbChk3: %s", analyteD.get(4), exPrbChk3));
+      resultVal.add(String.format("Error.\nActual PrbChk3:   %s \nExpected PrbChk3: %s", analyteD.get(4), exPrbChk3));
 
     // Compare Probe Check Result
     if (exPrbChkResult.equals(analyteD.get(5))) {
-      resultVal.add(String.format("Actual Probe Check Result: %s \nExpected Probe Check Result: %s", analyteD.get(5),
+      resultVal.add(String.format("Actual Probe Check Result:   %s \nExpected Probe Check Result: %s", analyteD.get(5),
           exPrbChkResult));
     } else
-      resultVal.add(String.format("Error. \nActual Probe Check Result: %s \nExpected Probe Check Result: %s",
+      resultVal.add(String.format("Error. \nActual Probe Check Result:   %s \nExpected Probe Check Result: %s",
           analyteD.get(5), exPrbChkResult));
 
     // Compare 2nd Deriv Peak
     if (exDerivPeak.equals(analyteD.get(6))) {
       resultVal
-          .add(String.format("Actual 2nd Deriv Peak: %s \nExpected 2nd Deriv Peak: %s", analyteD.get(6), exDerivPeak));
+          .add(String.format("Actual 2nd Deriv Peak:   %s \nExpected 2nd Deriv Peak: %s", analyteD.get(6), exDerivPeak));
     } else
-      resultVal.add(String.format("Error.\nActual 2nd Deriv Peak: %s \nExpected 2nd Deriv Peak: %s", analyteD.get(6),
+      resultVal.add(String.format("Error.\nActual 2nd Deriv Peak:   %s \nExpected 2nd Deriv Peak: %s", analyteD.get(6),
           exDerivPeak));
 
     return resultVal;
@@ -374,7 +374,7 @@ public class RevisedVerifyResultMethods extends ExcelMethods
     
     //Verify text in disclaimer
     if (GUIText.equals(exDisclaimer.trim())) {
-      resultVal = String.format("Actual Disclaimer: %s \nExpected Text: %s", GUIText, exDisclaimer);
+      resultVal = String.format("Actual Disclaimer: %s \nExpected Disclaimer: %s", GUIText, exDisclaimer);
     } else
     {
       if(GUIText.equals("For Research Use Only"))
@@ -384,7 +384,7 @@ public class RevisedVerifyResultMethods extends ExcelMethods
       else
         resultVal = String.format("Error.\n Actual Disclaimer: %s \nExpected Disclaimer %s", GUIText, exDisclaimer);
     }
-
+     resultVal = resultVal.replace(".", ".\n");
     return resultVal;
   }
 

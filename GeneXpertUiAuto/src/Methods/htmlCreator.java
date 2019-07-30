@@ -28,6 +28,7 @@ public class htmlCreator extends RevisedVerifyResultMethods
     final String verifyResultColor                                          = "Verification of Result Color";
     final String verifyDisclaimer                                           = "Verification of Disclaimer";
     final String red                                                        = "FF0000";
+    final String yellow                                                     = "FFFF00";
 
     final String verifyAnalyteName                                          = "Verification of Analyte Name";
     final String verifyCt                                                   = "Verification of Ct";
@@ -74,7 +75,12 @@ public class htmlCreator extends RevisedVerifyResultMethods
         String cell = htmlList.get(outerArray).get(innerArray);
         if (cell.contains("Error.")) {
           printWriter.print(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", red, cell));
-        } else
+        } 
+        else if(cell.contains("***"))
+        {
+          printWriter.print(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", yellow,cell));
+        }
+        else
           printWriter.print(String.format("<td><pre>%s</pre></td>\r\n", cell));
       }
       printWriter.print(endRow);
@@ -115,7 +121,12 @@ public class htmlCreator extends RevisedVerifyResultMethods
         String aCell = htmlAnalyte.get(val).get(count);
         if (aCell.contains("Error.")) {
           printWriter.print(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", red, aCell));
-        } else
+        } 
+        else if(aCell.contains("***"))
+        {
+          printWriter.print(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", yellow,aCell));
+        }
+        else
           printWriter.print(String.format("<td><pre>%s</pre></td>\r\n", aCell));
       }
       printWriter.print(endRow);
@@ -144,6 +155,8 @@ public class htmlCreator extends RevisedVerifyResultMethods
         String aCell = htmlAnalyteD.get(val).get(detailNum);
         if (aCell.contains("Error."))
           printWriter.print(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", red, aCell));
+        else if(aCell.contains("***"))
+         printWriter.print(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", yellow,aCell));
         else
           printWriter.print(String.format("<td><pre>%s</pre></td>\r\n", aCell));
 

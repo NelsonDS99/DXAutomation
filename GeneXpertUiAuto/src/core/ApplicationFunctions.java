@@ -25,10 +25,9 @@ public class ApplicationFunctions extends Locators
       }
       findJButton(locator(LOGIN_OK_BTN)).select();
     }
-    
-    waitForObject(TA_WND); 
-    if(exists(TA_NO_BTN))
-    {
+
+    waitForObject(TA_WND);
+    if (exists(TA_NO_BTN)) {
       findJButton(TA_NO_BTN).click();
     }
 

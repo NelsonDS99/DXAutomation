@@ -19,43 +19,43 @@ public class DeltaCtOrganism extends htmlCreator
   public void DeltaCtOrganismVerification ()
   {
     String document = "D6781 Delta Ct Organism Test Results Verification";
-    FileInputStream file = openFileInputStream(String.format(
-        "C:\\Silk Data Files\\D6781 Silk Data Files\\%s.xls",document));
+    FileInputStream file = openFileInputStream(
+        String.format("C:\\Silk Data Files\\D6781 Silk Data Files\\%s.xls", document));
 
     // Get excel workbook && Get Specific Sheet
     HSSFWorkbook workbook = openHSSFWorkbook(file);
     HSSFSheet sheet = openHSSFSheet(workbook, "AllTestResults");
 
     // Login to Cepheid
-   // userLogin();
+    // userLogin();
     // View Test Panel
     navigateToViewResults();
 
     Map<String, ArrayList<String>> expectedData = createStaticMapValues(sheet);
 
     Map<String, Integer> sampleIDList = actualResultsList(expectedData);
-    
+
     ArrayList<ArrayList<String>> htmlData = new ArrayList<ArrayList<String>>();
-    ArrayList<String> htmlValue; 
-    
-    Map<String, ArrayList<String>> htmlAnalyteR = new HashMap<String,ArrayList<String>>();
+    ArrayList<String> htmlValue;
+
+    Map<String, ArrayList<String>> htmlAnalyteR = new HashMap<String, ArrayList<String>>();
     ArrayList<String> htmlARValue;
-    
-    Map<String,ArrayList<String>>  htmlAnalyteD = new HashMap<String,ArrayList<String>>(); 
+
+    Map<String, ArrayList<String>> htmlAnalyteD = new HashMap<String, ArrayList<String>>();
     ArrayList<String> htmlADValue;
 
     int count = 0;
 
     for (String key : sampleIDList.keySet()) {
 
-      //Add key to htmlData
+      // Add key to htmlData
       htmlValue = new ArrayList<String>();
-      htmlValue.add(key); 
-      //Analyte Results Storage
-      htmlARValue = new ArrayList<String>(); 
-      
-      htmlADValue = new ArrayList<String>(); 
-      
+      htmlValue.add(key);
+      // Analyte Results Storage
+      htmlARValue = new ArrayList<String>();
+
+      htmlADValue = new ArrayList<String>();
+
       // Click Specific Assay in JTable
       clickResult(sampleIDList.get(key));
 
@@ -81,16 +81,16 @@ public class DeltaCtOrganism extends htmlCreator
 
       // Check the background color and font color of textbox
       htmlValue.add(verifyColor(expectedData, key, resultBGColor, resultFontColor, resultPos));
-      
-      //Check the disclaimer box
-      String resultDisclaimer = resultDisclaimer(sheet, key); 
-      htmlValue.add(verifyDisclaimer(resultDisclaimer)); 
+
+      // Check the disclaimer box
+      String resultDisclaimer = resultDisclaimer(sheet, key);
+      htmlValue.add(verifyDisclaimer(resultDisclaimer));
 
       HSSFSheet analyteSheet = openHSSFSheet(workbook, key);
 
       // Create map of Analyte Data for each assay
       Map<String, ArrayList<String>> analyteDataMap = exAnalyteDataMap(analyteSheet);
-       
+
       logInfo(Arrays.toString(analyteDataMap.keySet().toArray()));
       int rowNum = 0;
 
@@ -98,7 +98,7 @@ public class DeltaCtOrganism extends htmlCreator
 
       // Check the analyte results tab
       for (String analyte : analyteDataMap.keySet()) {
-       
+
         if (rowNum < findJTable(VR_ANALYTE_RTABLE).getRowCount()) {
           htmlARValue.addAll(verifyAnalyteResults(analyteDataMap, rowNum));
         }
@@ -113,29 +113,28 @@ public class DeltaCtOrganism extends htmlCreator
 
       clickTabbedPane(VR_TABBED_PANE, "Detail");
       for (String analyte : analyteDataMap.keySet()) {
-        
+
         htmlADValue.addAll(verifyAnalyteDetails(analyteDataMap, rowNum));
 
         rowNum++;
       }
 
       count++;
-      
-      //Add to htmlArrayList
-     htmlData.add(htmlValue);
-     htmlAnalyteR.put(key, htmlARValue); 
-     htmlAnalyteD.put(key, htmlADValue); 
+
+      // Add to htmlArrayList
+      htmlData.add(htmlValue);
+      htmlAnalyteR.put(key, htmlARValue);
+      htmlAnalyteD.put(key, htmlADValue);
 
       logInfo("====================");
     }
     try {
-      html(htmlData,document, htmlAnalyteR,htmlAnalyteD);
+      html(htmlData, document, htmlAnalyteR, htmlAnalyteD);
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
     logInfo(String.format("I analyzed %s test results", count));
   }
- 
 
 }

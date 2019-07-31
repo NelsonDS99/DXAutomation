@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recorderProject version="18.5">
+  <applicationConfiguration>
+    <moduleNamePattern>*\javaw.exe</moduleNamePattern>
+    <commandLinePattern>-Xms64M -Xmx1024M -Dstartup.root=.. -Dlog4j.configuration=file:../config/log4j.xml -jar ../lib/nova.jar</commandLinePattern>
+    <baseStateInfo>
+      <executable>%ProgramW6432%\Cepheid\GeneXpert Dx\jre\bin\javaw.exe</executable>
+      <commandLineArguments>-Xms64M -Xmx1024M -Dstartup.root=.. -Dlog4j.configuration=file:../config/log4j.xml -jar ../lib/nova.jar</commandLineArguments>
+      <workingDirectory>%ProgramW6432%\Cepheid\GeneXpert Dx\Dx\bin</workingDirectory>
+      <locator>GeneXpert® Dx System</locator>
+    </baseStateInfo>
+  </applicationConfiguration>
+  <agentOptions>
+    <entry>
+      <string>OPT_ASSET_NAMESPACE</string>
+      <string>GeneXpertUiAuto</string>
+    </entry>
+  </agentOptions>
+</recorderProject>

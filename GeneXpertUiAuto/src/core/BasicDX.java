@@ -155,5 +155,15 @@ public abstract class BasicDX
     String JEditor = String.format("//JEditorPane[@priorlabel=\'%s\']", locator);
     return desktop.<JEditorPane>find(JEditor);
   }
+  
+  protected void sleep (long time)
+  {
+    try {
+      Thread.sleep(time);
+    } catch (InterruptedException e) {
 
+      e.printStackTrace();
+    }
+
+  }
 }

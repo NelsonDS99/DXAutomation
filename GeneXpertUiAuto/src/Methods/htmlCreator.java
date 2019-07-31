@@ -175,7 +175,7 @@ public class htmlCreator extends RevisedVerifyResultMethods
   private String path(String document)
   {
     return String.format(
-        "C:\\Users\\nelson.scott\\gitDx\\GeneXpertUiAuto\\%s.txt",
+        "C:\\Users\\nelson.scott\\gitDx\\GeneXpertUiAuto\\%s.html",
         document);
   }
   private String htmlStarter()

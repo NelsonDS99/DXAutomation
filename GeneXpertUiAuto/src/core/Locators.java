@@ -424,6 +424,9 @@ public class Locators extends BasicDX
   protected final String VR_TEST_RESULT_BOX           = "//JTextArea[@priorlabel='Test Result']";
   protected final String VR_TEST_RESULT_BOX2          = "//JPanel[@className='ResultReporterPanel']//JTextArea";
   protected final String VR_WND                       = "//JPanel[@className='MainPanel']/JPanel[2]";
+  protected final String VR_LEFT_PANEL                = locator("//JPanel[@className='ResultOverviewPanel$b']/JPanel");
+  protected final String VR_SUPPORT_TAB               = locator("//JPanel[@className='JFlowPanel']"); 
+  
   // General Buttons
   protected final String SAVE_CHANGES_BTN             = "//JButton[@caption='Save Changes']";
   protected final String EXPORT_BTN                   = "//JButton[@caption='Export']";

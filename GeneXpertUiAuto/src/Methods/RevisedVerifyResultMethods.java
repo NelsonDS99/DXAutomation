@@ -57,14 +57,14 @@ public class RevisedVerifyResultMethods extends ExcelMethods
    */
   public ArrayList<String> verifyGuiLeftPanel (Map<String, ArrayList<String>> expectedData, String key)
   {
-    waitForObject(VR_WND);
+    waitForObject(VR_LEFT_PANEL);
 
     String leftSampleID = findJTextArea(VR_SAMPLE_ID_BOX).getText();
     String leftAssayName = findJTextField(VR_ASSAY_BOX).getText();
     String leftStatus;
     ArrayList<String> returnVal = new ArrayList<String>();
 
-    
+   sleep(10);
     if (exists(VR_STATUS_BOX)) {
       leftStatus = findJTextField(VR_STATUS_BOX).getText();
     } else
@@ -83,13 +83,13 @@ public class RevisedVerifyResultMethods extends ExcelMethods
       returnVal.add(String.format("Actual Assay Name:   %s \nExpected Assay Name: %s", leftAssayName, exAssayName));
     } else
       returnVal
-          .add(String.format("Error. \n Actual Assay Name    %s \nExpected Assay Name: %s", leftAssayName, exAssayName));
+          .add(String.format("Error. \nActual Assay Name    %s \nExpected Assay Name: %s", leftAssayName, exAssayName));
 
     //Compare Status
     if (exLeftStatus.equals(leftStatus)) {
       returnVal.add(String.format("Actual Status:   %s \nExpected Status: %s", leftStatus, exLeftStatus));
     } else
-      returnVal.add(String.format("Error. \n Actual Status:   %s \nExpected Status: %s ", leftStatus, exLeftStatus));
+      returnVal.add(String.format("Error. \nActual Status:   %s \nExpected Status: %s ", leftStatus, exLeftStatus));
 
     return returnVal;
   }
@@ -191,6 +191,8 @@ public class RevisedVerifyResultMethods extends ExcelMethods
 
     String errorStatus;
     
+    waitForObject(VR_SUPPORT_TAB);
+    
     if (exists(VR_ERROR_STATUS_TXT)) {
       errorStatus = findJTextField(VR_ERROR_STATUS_TXT).getText();
     } else
@@ -244,7 +246,7 @@ public class RevisedVerifyResultMethods extends ExcelMethods
       resultVal.add(String.format("Actual Interpretation Result:   %s \nExpected Interpretation Result: %s ",
           analyteR.get(4), exInterpretation));
     } else
-      resultVal.add(String.format("Error.\n Actual Interpretation Result:   %s \nExpected Interpretation Result: %s ",
+      resultVal.add(String.format("Error.\nActual Interpretation Result:   %s \nExpected Interpretation Result: %s ",
           analyteR.get(4), exInterpretation));
 
     // Compare reason
@@ -264,7 +266,7 @@ public class RevisedVerifyResultMethods extends ExcelMethods
    {
      if(analyteR.get(5).equals(""))
      {
-       resultVal.add(String.format("Actual Reason   %s \nExpected Reason: %s ", analyteR.get(5), exReason));
+       resultVal.add(String.format("*** \nActual Reason   %s \nExpected Reason: %s ", analyteR.get(5), exReason));
      }
      else
        resultVal.add(String.format("Error. \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5),exReason));
@@ -279,7 +281,7 @@ public class RevisedVerifyResultMethods extends ExcelMethods
           String.format("Actual Analyte Result:   %s \nExpected Analyte Reason: %s", analyteR.get(6), exAnalyteResult));
 
     } else
-      resultVal.add(String.format("Error.\nActual Analyte Result:   %s \nExpected Analyte Reason %s", analyteR.get(6),
+      resultVal.add(String.format("Error.\nActual Analyte Result:  %s \nExpected Analyte Reason %s", analyteR.get(6),
           exAnalyteResult));
 
     return resultVal;

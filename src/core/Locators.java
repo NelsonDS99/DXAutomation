@@ -1,6 +1,8 @@
 package core;
 
-public class Locators extends BasicDX
+import Methods.InputDialog;
+
+public class Locators extends InputDialog
 {
 
   protected String locator (String args)

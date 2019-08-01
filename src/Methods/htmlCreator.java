@@ -8,6 +8,8 @@ import java.util.Map;
 
 public class htmlCreator extends RevisedVerifyResultMethods
 {
+  String htmlCode = "";
+
   public void html (ArrayList<ArrayList<String>> htmlList, String document, Map<String, ArrayList<String>> htmlAnalyte,
       Map<String, ArrayList<String>> htmlAnalyteD) throws IOException
   {
@@ -49,6 +51,7 @@ public class htmlCreator extends RevisedVerifyResultMethods
     String header                                                           = htmlHeader(document);
     String tableHeaderCells                                                 = tableHeaderCells(SampleID, verifySampleID, verifyAssayName, verifyStatus, verifyErrorStatus, verifyAssayNameR,
                                                                                verifyTextBox,verifyResultColor, verifyDisclaimer);
+    String assayHeader                                                      = "<h3><u>Assay Verification</u></h3>\r\n";
     
     String tableWidth                                                       = "<table style=\"width:100%\">\r\n<tr>\r\n";
     String endRow                                                           = "</tr>\r\n";
@@ -62,67 +65,80 @@ public class htmlCreator extends RevisedVerifyResultMethods
     String analyteDetailHeader                                              = tableHeaderCells(verifyAnalyteDName, verifyPrbChk1, verifyPrbChk2,verifyPrbChk3, verifyPrbChkResult, verifyDerivPeak);
 
     int errorID = 0;
-    String htmlCode = "";
     String errorTable = "";
+    String errorTableHeader                                                      = "<h3><u>Error Table</u></h3>\r\n";
+    String analyteErrorTable                                                     = ""; 
+    String analyteErrorHeader                                                    = "<h3><u>Analyte Error Table</u></h3>\r\n";
 
     
     //Create the table header of Test Results    
     printWriter.print(htmlStarter);
-    String beginTable = beginTableCreation(header,styleTable,styleRows,styleExtra,tableWidth,tableHeaderCells,endRow); 
-    errorTable = beginTableCreation(styleTable, styleRows,styleExtra,tableWidth,errorHeaders);
-    printWriter.print(beginTable);
+    printWriter.print(header);
+    String beginTable = beginTableCreation(assayHeader,styleTable,styleRows,styleExtra,tableWidth,tableHeaderCells,endRow); 
+    errorTable = beginTableCreation(errorTableHeader,styleTable, styleRows,styleExtra,tableWidth,errorHeaders);
+    concat(beginTable);
 
     /* Create cells with individual verification results
      * Iterates through the htmlList for each individual assay
      * 
+     * 0 -- Sample ID
+     * 1 -- Verify Sample ID
+     * 2 -- Verify Assay Name
+     * 3 -- Verify Status
+     * 4 -- Verify Error Status
+     * 5 -- Verify Assay Name R
+     * 6 -- Verify Text Box
+     * 7 -- Verify Result Color
+     * 8 -- Verify Disclaimer
      */
     for (int outerArray = 0; outerArray < htmlList.size(); outerArray++) {
-      //printWriter.print(beginRow);
-      htmlCode = htmlCode.concat(beginRow); 
+      concat(beginRow); 
       for (int innerArray = 0; innerArray < htmlList.get(outerArray).size(); innerArray++) {
         String cell = htmlList.get(outerArray).get(innerArray);       
         if (cell.contains("Error.")) {
-          //printWriter.print(String.format("<td id=\"Error%s\" style=\"background-color:#%s\"><pre>%s</pre></td>\r\n",errorID, red, cell));
-          htmlCode = htmlCode.concat(String.format("<td id=\"Error%s\" style=\"background-color:#%s\"><pre>%s</pre></td>\r\n",errorID, red, cell));
-         errorTable = errorTable.concat(createErrorCells(htmlList.get(outerArray).get(0), errorID));
+          concat(String.format("<td id=\"Error%s\" style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", errorID, red, cell));
+         errorTable = errorTable.concat(createErrorCells(htmlList.get(outerArray).get(0), errorID, innerArray));
           errorID++;
         } 
         else if(cell.contains("***"))
         {
-        //  printWriter.print(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", yellow,cell));
-         htmlCode = htmlCode.concat(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", yellow,cell)); 
+         concat(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", yellow,cell)); 
           
         }
         else
-          htmlCode = htmlCode.concat(String.format("<td><pre>%s</pre></td>\r\n", cell));
-          //printWriter.print(String.format("<td><pre>%s</pre></td>\r\n", cell));
+          concat(String.format("<td><pre>%s</pre></td>\r\n", cell));
       }
-      //printWriter.print(endRow);
-      htmlCode = htmlCode.concat(endRow);
+      concat(endRow);
     }
 
-    //printWriter.print(endTable);
-    htmlCode = htmlCode.concat(endTable);
+    concat(endTable);
     
-    printWriter.print(htmlCode);
+   
     
     printWriter.print(errorTable);
-    printWriter.print(endRow);
     printWriter.print(endTable);
-
+    
+   
+    analyteErrorTable = beginTableCreation(analyteErrorHeader, styleTable, styleRows, styleExtra, tableWidth, errorHeaders);
     /*
      * 
      * Begin the data creation for the Analytes of each assay
      * Creates the assay header and table label
      */
-    printWriter.print("<h2 style=\"text-align:center;\">Analyte Data</h2>\r\n");
+   
+    concat("<h2 style=\"text-align:center;\">Analyte Data</h2>\r\n");
     for (String val : htmlAnalyte.keySet()) {
-      printWriter.print(String.format("<h3><u>%s</u></h3>\r\n", val));
-      printWriter.print(String.format("<h4>%s</h4>\r\n", "Analyte Results Verification"));
+     
+      concat(String.format("<h3><u>%s</u></h3>\r\n", val));
+     
+      concat(String.format("<h4>%s</h4>\r\n", "Analyte Results Verification"));
       beginTable = beginTableCreation(styleTable,styleRows,styleExtra,tableWidth);
-      printWriter.print(beginTable);
-      printWriter.print(analyteResultsHeaders);
-      printWriter.print("</tr>\r\n<tr>\r\n");
+     
+      concat(beginTable);
+    
+      concat(analyteResultsHeaders); 
+  
+      concat("</tr>\r\n<tr>\r\n");
 
       /*
        * 
@@ -138,27 +154,39 @@ public class htmlCreator extends RevisedVerifyResultMethods
         
         //Start a new row once all 6 data points of analyte are checked
         if (count % 6 == 0 && count != 0) {
-          printWriter.print(endRow);
+       
+          concat(endRow);
         }
         String aCell = htmlAnalyte.get(val).get(count);
         if (aCell.contains("Error.")) {
-          printWriter.print(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", red, aCell));
+          concat(String.format("<td id =\"Error%s\" style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", errorID, red, aCell));
+          analyteErrorTable = analyteErrorTable.concat(createAErrorCells(val,htmlAnalyte.get(val).get(0), errorID, count % 6));
+          errorID++;
         } 
         else if(aCell.contains("***"))
         {
-          printWriter.print(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", yellow,aCell));
+         
+          concat(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", yellow,aCell));
         }
-        else
-          printWriter.print(String.format("<td><pre>%s</pre></td>\r\n", aCell));
+        else {
+         
+          concat(String.format("<td><pre>%s</pre></td>\r\n", aCell));
+        }
       }
-      printWriter.print(endRow);
-      printWriter.print(endTable);
+    
+      concat(endRow);
+     
+      concat(endTable);
 
       //Create the table for analyte details verification
-      printWriter.print(String.format("<h4>%s</h4>\r\n", "Analyte Details Verification"));
-      printWriter.print(beginTable);
-      printWriter.print(analyteDetailHeader);
-      printWriter.print("</tr>\r\n<tr>\r\n");
+      
+      concat(String.format("<h4>%s</h4>\r\n", "Analyte Details Verification"));
+     
+      concat(beginTable);
+    
+      concat(analyteDetailHeader);
+    
+      concat("</tr>\r\n<tr>\r\n");
       
       /*
        * Iterates through the analyte details map
@@ -172,22 +200,40 @@ public class htmlCreator extends RevisedVerifyResultMethods
        */
       for (int detailNum = 0; detailNum < htmlAnalyteD.get(val).size(); detailNum++) {
         if (detailNum % 6 == 0 && detailNum != 0) {
-          printWriter.print(endRow);
+          
+          concat(endRow);
         }
         String aCell = htmlAnalyteD.get(val).get(detailNum);
-        if (aCell.contains("Error."))
-          printWriter.print(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", red, aCell));
+        if (aCell.contains("Error.")) {
+         concat(String.format("<td id=\"Error%s\" style=\"background-color:#%s\"><pre>%s</pre></td>\r\n",errorID, red, aCell));
+          analyteErrorTable = analyteErrorTable.concat(createADErrorCells(val,htmlAnalyteD.get(val).get(0),errorID,detailNum % 6));
+          errorID++;
+        }
         else if(aCell.contains("***"))
-         printWriter.print(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", yellow,aCell));
+        {
+       
+         concat(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", yellow,aCell));
+        }
         else
-          printWriter.print(String.format("<td><pre>%s</pre></td>\r\n", aCell));
+        {
+        
+          concat(String.format("<td><pre>%s</pre></td>\r\n", aCell));
+        }
 
       }
-      printWriter.print(endRow);
-      printWriter.print(endTable);
+     
+      concat(endRow);
+  
+      concat(endTable);
     }
 
     //Finish the html code
+    printWriter.print(analyteErrorTable);
+    printWriter.print(endRow);
+    printWriter.print(endTable);
+    
+    printWriter.print(htmlCode);
+    
     printWriter.print(htmlEnder);
     printWriter.close();
     fileWriter.close();
@@ -250,16 +296,116 @@ public class htmlCreator extends RevisedVerifyResultMethods
     
     return concat;
   }
-  private String createErrorCells(String assay, int error)
+  private String createErrorCells(String assay, int error, int colNum)
   {
     String errorCell = ""; 
-    
+    String colName = "";
+    switch(colNum)
+    {
+      case 1:
+        colName = "Sample ID";
+        break;
+      case 2:
+        colName = "Assay Name";
+        break;
+      case 3:
+        colName = "Status";
+        break;
+      case 4:
+        colName = "Error Status";
+        break;
+      case 5:
+        colName = "Right Assay Name";
+        break;
+      case 6: 
+        colName = "Text Result Box";
+        break;
+      case 7:
+        colName = "Result Color";
+        break;
+      case 8:
+        colName = "Disclaimer"; 
+        break;
+      default:
+        colName = "No Clue"; 
+    }
     errorCell = String.format("<tr>\r\n"
         + "<td><pre>%s</pre></td>\r\n"
-        + "<td><pre><a href=\"#Error%s\">Jump to Error</a></pre></td>\r\n"
-        + "</tr>\r\n", assay, error);
+        + "<td><pre><a href=\"#Error%s\">%s</a></pre></td>\r\n"
+        + "</tr>\r\n", assay, error, colName);
     
     return errorCell;
+  }
+  
+  private String createAErrorCells(String assay, String analyte, int error, int colNum)  {
+    String errorCell = ""; 
+    String colName = "";
+    switch(colNum)
+    {
+      case 1:
+        colName = "Analyte Name";
+        break;
+      case 2:
+        colName = "Ct";
+        break;
+      case 3:
+        colName = "End Pt";
+        break;
+      case 4:
+        colName = "Interpretation Result";
+        break;
+      case 5:
+        colName = "Analyte Reason";
+        break;
+      case 6: 
+        colName = "Analyte Result";
+        break;
+      default:
+        colName = "No Clue"; 
+    }
+    errorCell = String.format("<tr>\r\n"
+        + "<td><pre>%s | %s</pre></td>\r\n"
+        + "<td><pre><a href=\"#Error%s\">%s</a></pre></td>\r\n"
+        + "</tr>\r\n", assay, analyte, error, colName);
+    
+    return errorCell;
+  }
+  private String createADErrorCells(String assay, String analyte,  int error, int colNum)  {
+    String errorCell = ""; 
+    String colName = "";
+    switch(colNum)
+    {
+      case 1:
+        colName = "Analyte Name";
+        break;
+      case 2:
+        colName = "Prb Check 1";
+        break;
+      case 3:
+        colName = "Prb Check 2";
+        break;
+      case 4:
+        colName = "Prb Check 3";
+        break;
+      case 5:
+        colName = "Probe Check Result";
+        break;
+      case 6: 
+        colName = "2nd Deriv Peak";
+        break;
+      default:
+        colName = "No Clue"; 
+    }
+    errorCell = String.format("<tr>\r\n"
+        + "<td><pre>%s | %s</pre></td>\r\n"
+        + "<td><pre><a href=\"#Error%s\">%s</a></pre></td>\r\n"
+        + "</tr>\r\n", assay, analyte,  error, colName);
+    
+    return errorCell;
+  }
+  private void concat(String code)
+  {
+    htmlCode = htmlCode.concat(code);
   }
   
   

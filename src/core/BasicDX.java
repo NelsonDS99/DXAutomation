@@ -9,6 +9,8 @@ import com.microfocus.silktest.jtf.swing.JLabel;
 import com.microfocus.silktest.jtf.swing.JMenuItem;
 import com.microfocus.silktest.jtf.swing.JPasswordField;
 import com.microfocus.silktest.jtf.swing.JToggleButton;
+
+
 import com.microfocus.silktest.jtf.swing.JTextField;
 import com.microfocus.silktest.jtf.swing.JTable;
 import com.microfocus.silktest.jtf.swing.JTextArea;
@@ -88,10 +90,9 @@ public abstract class BasicDX
    */
   public JTextField findJTextField (String locator)
   {
-    
+
     return desktop.<JTextField>find(locator);
-    
-    
+
   }
 
   /*
@@ -155,7 +156,7 @@ public abstract class BasicDX
     String JEditor = String.format("//JEditorPane[@priorlabel=\'%s\']", locator);
     return desktop.<JEditorPane>find(JEditor);
   }
-  
+
   protected void sleep (long time)
   {
     try {

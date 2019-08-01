@@ -17,13 +17,13 @@ public class RevisedVerifyResultMethods extends ExcelMethods
   public Map<String, Integer> actualResultsList (Map<String, ArrayList<String>> expectedData)
   {
     findJButton(VIEW_TEST_BTN).click();
-    
-    //Create keys and locations map
+
+    // Create keys and locations map
     Set<String> keys;
     Map<String, Integer> actualData = new HashMap<String, Integer>();
     final int numRows = findJTable(TEST_JTABLE).getRowCount();
 
-    //Iterate through expected map, if JTable contains assay map the location
+    // Iterate through expected map, if JTable contains assay map the location
     for (int count = 0; count < numRows; count++) {
       keys = expectedData.keySet();
       String actualSampleID = findJTable(TEST_JTABLE).getCellText(count, 1);
@@ -33,8 +33,8 @@ public class RevisedVerifyResultMethods extends ExcelMethods
     }
 
     findJButton(TEST_CANCEL_BTN).click();
-    
-    //Return JTable
+
+    // Return JTable
     return actualData;
 
   }
@@ -64,28 +64,28 @@ public class RevisedVerifyResultMethods extends ExcelMethods
     String leftStatus;
     ArrayList<String> returnVal = new ArrayList<String>();
 
-   sleep(10);
+    sleep(10);
     if (exists(VR_STATUS_BOX)) {
       leftStatus = findJTextField(VR_STATUS_BOX).getText();
     } else
-        leftStatus = "Does Not Exist";
+      leftStatus = "Does Not Exist";
     String exAssayName = expectedData.get(key).get(2);
     String exLeftStatus = expectedData.get(key).get(0);
 
-    //Compare Sample ID
+    // Compare Sample ID
     if (expectedData.containsKey(leftSampleID)) {
       returnVal.add(String.format("Actual ID:   %s \nExpected ID: %s", leftSampleID, key));
     } else
       returnVal.add(String.format("Error. Actual ID:   %s \n Expected ID:   %s", leftSampleID, key));
-    
-    //Compare Assay Name
+
+    // Compare Assay Name
     if (exAssayName.equals(leftAssayName)) {
       returnVal.add(String.format("Actual Assay Name:   %s \nExpected Assay Name: %s", leftAssayName, exAssayName));
     } else
       returnVal
           .add(String.format("Error. \nActual Assay Name    %s \nExpected Assay Name: %s", leftAssayName, exAssayName));
 
-    //Compare Status
+    // Compare Status
     if (exLeftStatus.equals(leftStatus)) {
       returnVal.add(String.format("Actual Status:   %s \nExpected Status: %s", leftStatus, exLeftStatus));
     } else
@@ -104,7 +104,7 @@ public class RevisedVerifyResultMethods extends ExcelMethods
       clickTabbedPane(VR_TABBED_PANE, "Test Result");
     } else
       logError("Tabbed Pane does not exists");
-    
+
     // Verify Assay Name
     String assayName = findEmJLabel(expectedData.get(key).get(2)).getText();
 
@@ -128,10 +128,11 @@ public class RevisedVerifyResultMethods extends ExcelMethods
     String resultVal = "";
     String GUIText = getEmJEditorPane(expectedData.get(key).get(2)).getText();
     String[] sepGUIText = GUIText.split(";\n");
-    
+
     for (String iterator : sepGUIText) {
       if (iterator.trim().equals(resultText.get(0))) {
-        resultVal = resultVal.concat(String.format("Actual Text:   %s \nExpected Text: %s\r\n", iterator, resultText.get(0)));
+        resultVal = resultVal
+            .concat(String.format("Actual Text:   %s \nExpected Text: %s\r\n", iterator, resultText.get(0)));
       } else
         resultVal = resultVal
             .concat(String.format("Error.\n Actual Text:   %s \nExpected Text: %s\r\n", iterator, resultText.get(0)));
@@ -153,16 +154,16 @@ public class RevisedVerifyResultMethods extends ExcelMethods
     formattedText = (getJEditorPane(formattedText).getFormattedText());
     logInfo(formattedText);
     for (int rowNum = 0; rowNum < resultPos.size(); rowNum++) {
-      
-      //Create unique row information
+
+      // Create unique row information
       String rowGUI = String.format("tr class=\"row%s\"", resultPos.get(rowNum) - 1);
       String rowInfo = String.format("tr.row%s { background-color: #%s; color: #%s }", resultPos.get(rowNum) - 1,
           resultBGColor.get(rowNum), resultFontColor.get(rowNum));
-      
-      //Check if the correct row exists
+
+      // Check if the correct row exists
       if (formattedText.indexOf(rowGUI) != -1) {
-        
-        //Check if row information is correct
+
+        // Check if row information is correct
         if (formattedText.indexOf(rowInfo) != -1) {
           resultVal = resultVal.concat(String.format("Actual BC: %s", rowInfo));
         } else
@@ -190,16 +191,16 @@ public class RevisedVerifyResultMethods extends ExcelMethods
       logError("Tabbed Pane does not exist");
 
     String errorStatus;
-    
+
     waitForObject(VR_SUPPORT_TAB);
-    
+
     if (exists(VR_ERROR_STATUS_TXT)) {
       errorStatus = findJTextField(VR_ERROR_STATUS_TXT).getText();
     } else
       errorStatus = "Does Not Exist";
     String exErrorStatus = expectedData.get(key).get(1);
 
-    //Verify the error status
+    // Verify the error status
     if (exErrorStatus.equals(errorStatus)) {
       returnVal.add(String.format("Actual Error Status:   %s \nExpected Error Status: %s", errorStatus, exErrorStatus));
     } else
@@ -225,7 +226,7 @@ public class RevisedVerifyResultMethods extends ExcelMethods
 
     // Compare AnalyteNames
     if (exAnalyteData.containsKey(key)) {
-      resultVal.add(String.format("Analyte Names are correct: %s", analyteR.get(0)));
+      resultVal.add(String.format("Analyte Name: %s", analyteR.get(0)));
     } else
       resultVal.add(String.format("Analyte Names are Incorrect: %s", analyteR.get(0)));
 
@@ -250,30 +251,20 @@ public class RevisedVerifyResultMethods extends ExcelMethods
           analyteR.get(4), exInterpretation));
 
     // Compare reason
-   if (exReason.equals(analyteR.get(5))) {
-        resultVal.add(String.format("Actual Reason:   %s \nExpected Reason: %s ", analyteR.get(5), exReason));
-      } 
-   else if (exReason.equals("NA"))
-      {
-        if(analyteR.get(5).equals(""))
-        {
-          resultVal.add(String.format("*** \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
-        }
-        else
-          resultVal.add(String.format("Error. \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5),exReason));
-      }
-   else if(exReason.equals("No Ct"))
-   {
-     if(analyteR.get(5).equals(""))
-     {
-       resultVal.add(String.format("*** \nActual Reason   %s \nExpected Reason: %s ", analyteR.get(5), exReason));
-     }
-     else
-       resultVal.add(String.format("Error. \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5),exReason));
-   }
-   else
-     resultVal.add(String.format("Error.\nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
-       
+    if (exReason.equals(analyteR.get(5))) {
+      resultVal.add(String.format("Actual Reason:   %s \nExpected Reason: %s ", analyteR.get(5), exReason));
+    } else if (exReason.equals("NA")) {
+      if (analyteR.get(5).equals("")) {
+        resultVal.add(String.format("*** \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
+      } else
+        resultVal.add(String.format("Error. \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
+    } else if (exReason.equals("No Ct")) {
+      if (analyteR.get(5).equals("")) {
+        resultVal.add(String.format("*** \nActual Reason   %s \nExpected Reason: %s ", analyteR.get(5), exReason));
+      } else
+        resultVal.add(String.format("Error. \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
+    } else
+      resultVal.add(String.format("Error.\nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
 
     // Compare Analyte Result
     if (exAnalyteResult.equals(analyteR.get(6))) {
@@ -308,7 +299,7 @@ public class RevisedVerifyResultMethods extends ExcelMethods
 
     // Compare Analyte Names
     if (exAnalyteData.containsKey(key)) {
-      resultVal.add(String.format("Analyte Name is Correct: %s", key));
+      resultVal.add(String.format("Analyte Name: %s", key));
 
     } else
       resultVal.add(String.format("Error. Analyte Name is Wrong %s", key));
@@ -341,8 +332,8 @@ public class RevisedVerifyResultMethods extends ExcelMethods
 
     // Compare 2nd Deriv Peak
     if (exDerivPeak.equals(analyteD.get(6))) {
-      resultVal
-          .add(String.format("Actual 2nd Deriv Peak:   %s \nExpected 2nd Deriv Peak: %s", analyteD.get(6), exDerivPeak));
+      resultVal.add(
+          String.format("Actual 2nd Deriv Peak:   %s \nExpected 2nd Deriv Peak: %s", analyteD.get(6), exDerivPeak));
     } else
       resultVal.add(String.format("Error.\nActual 2nd Deriv Peak:   %s \nExpected 2nd Deriv Peak: %s", analyteD.get(6),
           exDerivPeak));
@@ -359,7 +350,7 @@ public class RevisedVerifyResultMethods extends ExcelMethods
     String GUIText;
     String resultVal = "";
 
-    //Disclaimer has two unique ID's so check for both
+    // Disclaimer has two unique ID's so check for both
     switch (verify) {
       case "1":
         GUIText = findJTextArea(VR_TEST_RESULT_BOX).getText();
@@ -373,20 +364,17 @@ public class RevisedVerifyResultMethods extends ExcelMethods
         GUIText = "Disclaimer Does Not Exist";
         break;
     }
-    
-    //Verify text in disclaimer
+
+    // Verify text in disclaimer
     if (GUIText.equals(exDisclaimer.trim())) {
       resultVal = String.format("Actual Disclaimer: %s \nExpected Disclaimer: %s", GUIText, exDisclaimer);
-    } else
-    {
-      if(GUIText.equals("For Research Use Only"))
-      {
+    } else {
+      if (GUIText.equals("For Research Use Only")) {
         resultVal = String.format("Actual Disclaimer: %s \nExpected Disclaimer: \"\"", GUIText);
-      }
-      else
+      } else
         resultVal = String.format("Error.\n Actual Disclaimer: %s \nExpected Disclaimer %s", GUIText, exDisclaimer);
     }
-     resultVal = resultVal.replace(".", ".\n");
+    resultVal = resultVal.replace(".", ".\n");
     return resultVal;
   }
 

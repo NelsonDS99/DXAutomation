@@ -160,7 +160,7 @@ public class htmlCreator extends RevisedVerifyResultMethods
         String aCell = htmlAnalyte.get(val).get(count);
         if (aCell.contains("Error.")) {
           concat(String.format("<td id =\"Error%s\" style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", errorID, red, aCell));
-          analyteErrorTable = analyteErrorTable.concat(createAErrorCells(val,htmlAnalyte.get(val).get(0), errorID, count % 6));
+          analyteErrorTable = analyteErrorTable.concat(createAErrorCells(val,htmlAnalyte.get(val).get(count-(count%6)), errorID, (count % 6)+1));
           errorID++;
         } 
         else if(aCell.contains("***"))
@@ -206,7 +206,7 @@ public class htmlCreator extends RevisedVerifyResultMethods
         String aCell = htmlAnalyteD.get(val).get(detailNum);
         if (aCell.contains("Error.")) {
          concat(String.format("<td id=\"Error%s\" style=\"background-color:#%s\"><pre>%s</pre></td>\r\n",errorID, red, aCell));
-          analyteErrorTable = analyteErrorTable.concat(createADErrorCells(val,htmlAnalyteD.get(val).get(0),errorID,detailNum % 6));
+          analyteErrorTable = analyteErrorTable.concat(createADErrorCells(val,htmlAnalyteD.get(val).get(detailNum-(detailNum%6)),errorID,(detailNum % 6)+1));
           errorID++;
         }
         else if(aCell.contains("***"))
@@ -243,7 +243,7 @@ public class htmlCreator extends RevisedVerifyResultMethods
   private String path(String document)
   {
     return String.format(
-        "C:\\Users\\nelson.scott\\gitDx\\GeneXpertUiAuto\\%s.html",
+        "C:\\Users\\nelson.scott\\gitDx\\GeneXpertUiAuto\\TestResultFiles\\%s.html",
         document);
   }
   private String htmlStarter()

@@ -18,13 +18,15 @@ public class AutomationDemo extends htmlCreator
   @Test
   public void BasicOrganismBasedTestResultsVerification ()
   {
-    String document = selectDocument();
+    String folder = selectFolder();
+    String document = selectDocument(folder);
     FileInputStream file = openFileInputStream(
-        String.format("C:\\Silk Data Files\\D6781 Silk Data Files\\%s.xls", document));
+        String.format("C:\\Silk Data Files\\%s\\%s.xls",folder, document));
 
     // Get excel workbook && Get Specific Sheet
     HSSFWorkbook workbook = openHSSFWorkbook(file);
-    HSSFSheet sheet = openHSSFSheet(workbook, "AllTestResults");
+    String workSheet = selectSheet(document); 
+    HSSFSheet sheet = openHSSFSheet(workbook, workSheet);
 
     // Login to Cepheid
     // userLogin();
@@ -48,6 +50,7 @@ public class AutomationDemo extends htmlCreator
 
     for (String key : sampleIDList.keySet()) {
 
+      logInfo(key);
       // Add key to htmlData
       htmlValue = new ArrayList<String>();
       htmlValue.add(key);
@@ -129,6 +132,7 @@ public class AutomationDemo extends htmlCreator
       logInfo("====================");
     }
     try {
+      document = String.format("%s-%s", document,workSheet);
       html(htmlData, document, htmlAnalyteR, htmlAnalyteD);
     } catch (IOException e) {
       // TODO Auto-generated catch block

@@ -101,7 +101,7 @@ public class AutomationDemo extends htmlCreator
       clickTabbedPane(VR_TABBED_PANE, "Analyte Result");
 
       // Check the analyte results tab
-      for (String analyte : analyteDataMap.keySet()) {
+      while(rowNum < analyteDataMap.keySet().size()) {
 
         if (rowNum < findJTable(VR_ANALYTE_RTABLE).getRowCount()) {
           htmlARValue.addAll(verifyAnalyteResults(analyteDataMap, rowNum));
@@ -116,7 +116,7 @@ public class AutomationDemo extends htmlCreator
         rowNum = 0;
 
       clickTabbedPane(VR_TABBED_PANE, "Detail");
-      for (String analyte : analyteDataMap.keySet()) {
+      while(rowNum < analyteDataMap.keySet().size()) {
 
         htmlADValue.addAll(verifyAnalyteDetails(analyteDataMap, rowNum));
 

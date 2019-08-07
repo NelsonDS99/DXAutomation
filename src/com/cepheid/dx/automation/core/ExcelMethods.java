@@ -34,7 +34,6 @@ public class ExcelMethods extends ApplicationFunctions
    */
   public HSSFWorkbook openHSSFWorkbook (FileInputStream locator)
   {
-    // Get excel workbook
     try {
       HSSFWorkbook workbook = new HSSFWorkbook(locator);
       return workbook;
@@ -98,6 +97,9 @@ public class ExcelMethods extends ApplicationFunctions
 
   }
 
+  /*
+   * Map the expected analyte data map from the excel sheet
+   */
   public Map<String, ArrayList<String>> exAnalyteDataMap (HSSFSheet sheet)
   {
 
@@ -140,9 +142,16 @@ public class ExcelMethods extends ApplicationFunctions
     int start = getFirstCell(sheet, key);
     ArrayList<String> resultText = new ArrayList<String>();
 
+    logInfo(start +" " + key);
     Row row = sheet.getRow(start);
-    while (key.equals(row.getCell(0).toString())) {
-      resultText.add(row.getCell(4).toString().replace(";", ""));
+    logInfo(row.getCell(0).toString());
+    while (isRowEmpty(sheet, start) == false  && checkIfCellIsEmpty(row,0) == false && key.equals(row.getCell(0).toString())) {
+      String cell = row.getCell(4).toString();
+      if(cell.isEmpty() == false && ";".equals(cell.substring(cell.length()-1)))
+      {
+        cell = cell.substring(0,cell.length()-1); 
+      }
+      resultText.add(cell);
       start++;
       row = sheet.getRow(start);
     }
@@ -161,7 +170,7 @@ public class ExcelMethods extends ApplicationFunctions
 
     Row row = sheet.getRow(start);
 
-    while (key.equals(row.getCell(0).toString())) {
+    while (isRowEmpty(sheet, start) == false && checkIfCellIsEmpty(row,0) == false && key.equals(row.getCell(0).toString())) {
       resultBGColor.add(row.getCell(5).toString());
       start++;
       row = sheet.getRow(start);
@@ -179,7 +188,7 @@ public class ExcelMethods extends ApplicationFunctions
     ArrayList<String> resultFontColor = new ArrayList<String>();
     Row row = sheet.getRow(start);
 
-    while (key.equals(row.getCell(0).toString())) {
+    while (isRowEmpty(sheet, start) == false && checkIfCellIsEmpty(row,0) == false && key.equals(row.getCell(0).toString())) {
       resultFontColor.add(row.getCell(6).toString());
       start++;
       row = sheet.getRow(start);
@@ -197,7 +206,7 @@ public class ExcelMethods extends ApplicationFunctions
     ArrayList<Integer> resultPos = new ArrayList<Integer>();
     Row row = sheet.getRow(start);
 
-    while (key.equals(row.getCell(0).toString())) {
+    while (isRowEmpty(sheet, start) == false && checkIfCellIsEmpty(row,0) == false && key.equals(row.getCell(0).toString())) {
       resultPos.add((int) converter(row.getCell(7).toString()));
       start++;
       row = sheet.getRow(start);
@@ -205,6 +214,9 @@ public class ExcelMethods extends ApplicationFunctions
     return resultPos;
   }
 
+  /*
+   * Extracts the disclaimers from the excel sheet
+   */
   public String resultDisclaimer (HSSFSheet sheet, String key)
   {
     String exText = "";
@@ -251,13 +263,19 @@ public class ExcelMethods extends ApplicationFunctions
   private boolean isRowEmpty (HSSFSheet sheet, int rowIndex)
   {
 
-    if (sheet.getLastRowNum() <= rowIndex) {
+    logInfo(sheet.getLastRowNum() + " ");
+    if (sheet.getLastRowNum() == rowIndex-1) {
 
       return true;
     }
     return false;
   }
+  
+  
 
+  /*
+   * Check if the row is empty
+   */
   private static boolean isRowEmpty (Row row)
   {
     for (int c = row.getFirstCellNum(); c < row.getLastCellNum(); c++) {
@@ -268,6 +286,10 @@ public class ExcelMethods extends ApplicationFunctions
     return true;
   }
 
+
+  /*
+   * Check the first cell of the assay name
+   */
   private int getFirstCell (HSSFSheet sheet, String key)
   {
     Iterator<Row> rowIterator = sheet.iterator();
@@ -285,6 +307,9 @@ public class ExcelMethods extends ApplicationFunctions
     return -1;
   }
 
+  /*
+   * Convert a string into a double type
+   */
   private double converter (String number)
   {
     if (number != null) {

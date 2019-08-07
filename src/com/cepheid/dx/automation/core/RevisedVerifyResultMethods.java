@@ -134,7 +134,7 @@ public class RevisedVerifyResultMethods extends ExcelMethods
             .concat(String.format("Actual Text:   %s \nExpected Text: %s\r\n", iterator, resultText.get(0)));
       } else
         resultVal = resultVal
-            .concat(String.format("Error.\n Actual Text:   %s \nExpected Text: %s\r\n", iterator, resultText.get(0)));
+            .concat(String.format("Error.\nActual Text:   %s \nExpected Text: %s\r\n", iterator, resultText.get(0)));
 
       resultVal = resultVal.concat("\r\n");
       resultText.remove(0);

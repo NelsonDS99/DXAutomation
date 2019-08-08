@@ -6,12 +6,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class htmlCreator extends RevisedVerifyResultMethods
+public class htmlCreator extends ExcelMethods
 {
   String htmlCode = "";
+  
 
-  public void html (ArrayList<ArrayList<String>> htmlList, String document, Map<String, ArrayList<String>> htmlAnalyte,
-      Map<String, ArrayList<String>> htmlAnalyteD) throws IOException
+  public void html (ArrayList<ArrayList<String>> htmlList, Map<String, ArrayList<String>> htmlAnalyteR,
+      Map<String, ArrayList<String>> htmlAnalyteD,Map<String, ArrayList<String>> htmlAnalyteMelt, boolean melt, String document) throws IOException
   {
     //Create either html file or txt file
     String file = path(document); 
@@ -46,6 +47,9 @@ public class htmlCreator extends RevisedVerifyResultMethods
     final String verifyPrbChk3                                              = "Verification of Prb Check 3";
     final String verifyPrbChkResult                                         = "Verification of Probe Check Result"; 
     final String verifyDerivPeak                                            = "Verification of 2nd Deriv Peak";
+    
+    final String verifyMeltPeak                                             = "Verification of Melt Peak Temperature";
+    final String verifyMeltPeakHeight                                       = "Verification of Melt Peak Height"; 
 
     String htmlStarter                                                      = htmlStarter();
     String htmlEnder                                                        = htmlEnder();
@@ -64,6 +68,7 @@ public class htmlCreator extends RevisedVerifyResultMethods
     String errorHeaders                                                     = tableHeaderCells("Sample ID", "Error");
     String analyteResultsHeaders                                            = tableHeaderCells(verifyAnalyteName,verifyCt, verifyEndPt, verifyInterp, verifyAnalyteReason, verifyAnalyteResult);
     String analyteDetailHeader                                              = tableHeaderCells(verifyAnalyteDName, verifyPrbChk1, verifyPrbChk2,verifyPrbChk3, verifyPrbChkResult, verifyDerivPeak);
+    String analyteMeltHeader                                                = tableHeaderCells(verifyAnalyteName,verifyMeltPeak,verifyMeltPeakHeight);
 
     int errorID = 0;
     String errorTable = "";
@@ -132,7 +137,7 @@ public class htmlCreator extends RevisedVerifyResultMethods
      */
    
     concat("<h2 style=\"text-align:center;\">Analyte Data</h2>\r\n");
-    for (String val : htmlAnalyte.keySet()) {
+    for (String val : htmlAnalyteR.keySet()) {
      
       concat(String.format("<h3><u>%s</u></h3>\r\n", val));
      
@@ -155,17 +160,17 @@ public class htmlCreator extends RevisedVerifyResultMethods
        * 4 -- Analyte reason
        * 5 -- Analyte Result
        */
-      for (int count = 0; count < htmlAnalyte.get(val).size(); count++) {
+      for (int count = 0; count < htmlAnalyteR.get(val).size(); count++) {
         
         //Start a new row once all 6 data points of analyte are checked
         if (count % 6 == 0 && count != 0) {
        
           concat(endRow);
         }
-        String aCell = htmlAnalyte.get(val).get(count);
+        String aCell = htmlAnalyteR.get(val).get(count);
         if (aCell.contains("Error.")) {
           concat(String.format("<td id =\"Error%s\" style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", errorID, red, aCell));
-          analyteErrorTable = analyteErrorTable.concat(createAErrorCells(val,htmlAnalyte.get(val).get(count-(count%6)), errorID, (count % 6)+1));
+          analyteErrorTable = analyteErrorTable.concat(createAErrorCells(val,htmlAnalyteR.get(val).get(count-(count%6)), errorID, (count % 6)+1));
           errorID++;
         } 
         else if(aCell.contains("***"))
@@ -228,8 +233,45 @@ public class htmlCreator extends RevisedVerifyResultMethods
       }
      
       concat(endRow);
-  
       concat(endTable);
+      
+      if(melt)
+      {
+        //Create header for melt
+        concat(String.format("<h4>%s</h4>\r\n", "Analyte Melt Verification"));
+        concat(beginTable);
+        concat(analyteMeltHeader);
+        
+        concat("</tr>\r\n<tr>\r\n");
+        
+        /*
+         * Iterates through melt peak
+         * 0 -- Analyte Name
+         * 1 -- Melt Peak
+         * 2 -- Melt Peak Height
+         */
+        
+        for(int meltNum = 0; meltNum < htmlAnalyteMelt.get(val).size(); meltNum++)
+        {
+          if(meltNum % 3 == 0 && meltNum != 0)
+          {
+            concat(endRow);
+          }
+          String aCell = htmlAnalyteMelt.get(val).get(meltNum); 
+          if(aCell.contains("Error."))
+          {
+            concat(String.format("<td id=\"Error%s\" style=\"background-color:#%s\"><pre>%s</pre></td>\r\n",errorID, red, aCell));
+            analyteErrorTable = analyteErrorTable.concat(createMeltErrorCells(val,htmlAnalyteMelt.get(val).get(meltNum-(meltNum%3)),errorID,(meltNum % 3)+1));
+            errorID++;
+          }
+          else
+          {
+            concat(String.format("<td><pre>%s</pre></td>\r\n", aCell));
+          }
+        }
+        concat(endRow);
+        concat(endTable); 
+      }
     }
 
     //Finish the html code
@@ -409,10 +451,39 @@ public class htmlCreator extends RevisedVerifyResultMethods
     
     return errorCell;
   }
+  
+  private String createMeltErrorCells(String assay, String analyte, int error, int colNum)
+  {
+    String errorCell = "";
+    String colName = "";
+    
+    switch(colNum)
+    {
+      case 1:
+        colName = "Analyte Name";
+        break;
+      case 2:
+        colName = "Melt Peak Temperature";
+        break;
+      case 3:
+        colName = "Melt Peak Height";
+        break;
+        default:
+          colName = "No Clue"; 
+    }
+    errorCell = String.format("<tr>\r\n"
+        + "<td><pre>%s | %s</pre></td>\r\n"
+        + "<td><pre><a href=\"#Error%s\">%s</a></pre></td>\r\n"
+        + "</tr>\r\n", assay, analyte,  error, colName);
+    return errorCell; 
+  }
   private void concat(String code)
   {
     htmlCode = htmlCode.concat(code);
   }
+  
+  
+  
   
   
 }

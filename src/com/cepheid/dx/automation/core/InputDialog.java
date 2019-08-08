@@ -7,6 +7,7 @@ public class InputDialog extends BasicDX
 {
 
   String folder;
+
   /*
    * Select the excel document based off the folder selected
    */
@@ -16,7 +17,7 @@ public class InputDialog extends BasicDX
     ImageIcon icon1 = new ImageIcon("C:\\Users\\nelson.scott\\gitDx\\GeneXpertUiAuto\\src\\zeldaLogo.png");
     String input = (String) JOptionPane.showInputDialog(null, "Please choose an excel Document", "Excel Option",
         JOptionPane.QUESTION_MESSAGE, icon1, options, options[0]);
-    
+
     return input;
   }
 
@@ -43,11 +44,10 @@ public class InputDialog extends BasicDX
   {
     String sheet = null;
     String options[];
-    switch(folder)
-    {
+    logInfo(folder);
+    switch (folder) {
       case "D6780 Customize Test Result":
-        switch(document)
-        {
+        switch (document) {
           case "VerifyResultText & Color Organism":
             sheet = "GUIVerification2";
             break;
@@ -59,12 +59,9 @@ public class InputDialog extends BasicDX
             sheet = "TestRes6Target";
             break;
         }
-      case "D6781 Organism-Based Results":
-        sheet = "AllTestResults";
         break;
       case "D8380 Probe Check":
-        switch(document)
-        {
+        switch (document) {
           case "ProbeCheckCombinatorial":
           case "ProbeCheckNormalization1":
             sheet = "TestResult3";
@@ -77,9 +74,9 @@ public class InputDialog extends BasicDX
             sheet = sheetOption(options);
             break;
         }
+        break;
       case "D8383 Background Subtraction and Crosstalk Correction":
-        switch (document)
-        {
+        switch (document) {
           case "ExpectedAnalyteResultsBkgndSub":
             options = new String[] { "2Analytes", "3Analytes", "4Analytes", "6Analytes" };
             sheet = sheetOption(options);
@@ -96,17 +93,27 @@ public class InputDialog extends BasicDX
             sheet = sheetOption(options);
             break;
         }
+        break;
       case "D8384 Percent Ratio":
-        options = new String[] {"PercentRatio", "LSP"};
-        sheet = sheetOption(options);
+        switch (document) {
+          case "VerifyD8384":
+            options = new String[] { "PercentRatio", "LSP" };
+            sheet = sheetOption(options);
+            break;
+        }
+        break;
+      case "D6781 Organism-Based Results":
+        sheet = "AllTestResults";
         break;
     }
 
     return sheet;
   }
-  
+
   public String getTestResult ()
   {
+    if (folder == null)
+      return "Extra";
     return folder;
   }
 
@@ -134,8 +141,9 @@ public class InputDialog extends BasicDX
       case "D8383 Background Subtraction and Crosstalk Correction":
         files = new String[] { "ExpectedAnalyteResultsBkgndSub", "ExpectedAnalyteResultsBkgndValidation1",
             "ExpectedAnalyteResultsCombinatorial", "ExpectedAnalyteResultsCrosstalk" };
+        break;
       case "D8384 Percent Ratio":
-        files = new String[] {"VerifyD8384"};
+        files = new String[] { "VerifyD8384" };
         break;
     }
     return files;

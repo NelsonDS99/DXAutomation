@@ -9,24 +9,23 @@ import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-
 import org.junit.Test;
 
-import com.cepheid.dx.automation.core.VerifyResultMethods;
+import com.cepheid.dx.automation.core.htmlCreator;
+import com.cepheid.dx.automation.meltCore.MeltVerifyResult;
 
-public class AutomationDemo extends VerifyResultMethods
+public class MeltVerification extends MeltVerifyResult
 {
   @Test
-  public void BasicOrganismBasedTestResultsVerification ()
+  public void D19170_MeltVerification ()
   {
-    String folder = selectFolder();
-    String document = selectDocument(folder);
+    String folder = "D19170 Melt";
+    String document = "D19170 Melt Peak Verification";
     FileInputStream file = openFileInputStream(String.format("C:\\Silk Data Files\\%s\\%s.xls", folder, document));
 
     // Get excel workbook && Get Specific Sheet
     HSSFWorkbook workbook = openHSSFWorkbook(file);
-    String workSheet = selectSheet(document);
-    logInfo(workSheet);
+    String workSheet = "All Tests";
     HSSFSheet sheet = openHSSFSheet(workbook, workSheet);
 
     // Login to Cepheid
@@ -34,8 +33,10 @@ public class AutomationDemo extends VerifyResultMethods
     // View Test Panel
     navigateToViewResults();
 
+    // Obtain static values from excel for each test case
     Map<String, ArrayList<String>> expectedData = createStaticMapValues(sheet);
 
+    // Obtain matching test cases and their row number
     Map<String, Integer> sampleIDList = actualResultsList(expectedData);
 
     ArrayList<ArrayList<String>> htmlData = new ArrayList<ArrayList<String>>();
@@ -46,6 +47,9 @@ public class AutomationDemo extends VerifyResultMethods
 
     Map<String, ArrayList<String>> htmlAnalyteD = new HashMap<String, ArrayList<String>>();
     ArrayList<String> htmlADValue;
+
+    Map<String, ArrayList<String>> htmlAnalyteMelt = new HashMap<String, ArrayList<String>>();
+    ArrayList<String> htmlMeltValue;
 
     int count = 0;
 
@@ -59,6 +63,8 @@ public class AutomationDemo extends VerifyResultMethods
       htmlARValue = new ArrayList<String>();
 
       htmlADValue = new ArrayList<String>();
+
+      htmlMeltValue = new ArrayList<String>();
 
       // Click Specific Assay in JTable
       clickResult(sampleIDList.get(key));
@@ -92,54 +98,46 @@ public class AutomationDemo extends VerifyResultMethods
 
       HSSFSheet analyteSheet = openHSSFSheet(workbook, key);
 
-      // Create map of Analyte Data for each assay
-      Map<String, ArrayList<String>> analyteDataMap = exAnalyteDataMap(analyteSheet);
-
-      logInfo(Arrays.toString(analyteDataMap.keySet().toArray()));
-      int rowNum = 0;
-
       clickTabbedPane(VR_TABBED_PANE, "Analyte Result");
 
       // Check the analyte results tab
-      while (rowNum < analyteDataMap.keySet().size()) {
-
-        if (rowNum < findJTable(VR_ANALYTE_RTABLE).getRowCount()) {
-          htmlARValue.addAll(verifyAnalyteResults(analyteDataMap, rowNum));
-        }
-        rowNum++;
-      }
+      htmlARValue = verifyResultsTab(analyteSheet);
 
       // Check the analyte details tab
-      if (key.equals("ORG-12.A4") || key.equals("ORG-12.A3")) {
-        rowNum = 1;
-      } else
-        rowNum = 0;
-
       clickTabbedPane(VR_TABBED_PANE, "Detail");
-      while (rowNum < analyteDataMap.keySet().size()) {
+      htmlADValue = verifyAnalyteResultDetails(analyteSheet);
 
-        htmlADValue.addAll(verifyAnalyteDetails(analyteDataMap, rowNum));
-
-        rowNum++;
-      }
-
-      count++;
+      // Check the analyte Melt Peak tab
+      clickTabbedPane(VR_TABBED_PANE, "Melt Peaks");
+      htmlMeltValue = getMeltPeaks(analyteSheet);
 
       // Add to htmlArrayList
       htmlData.add(htmlValue);
+
       htmlAnalyteR.put(key, htmlARValue);
       htmlAnalyteD.put(key, htmlADValue);
+      htmlAnalyteMelt.put(key, htmlMeltValue);
 
+      count++;
       logInfo("====================");
     }
     try {
       document = String.format("%s-%s", document, workSheet);
-      html(htmlData, htmlAnalyteR, htmlAnalyteD, null, false, document);
+      html(htmlData, htmlAnalyteR, htmlAnalyteD, htmlAnalyteMelt, true, document);
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
     logInfo(String.format("I analyzed %s test results", count));
+  }
+
+  // @Test
+  public void test ()
+  {
+    logInfo(findJTable(VR_ANALYTE_RTABLE).getCellText(0, 0));
+    logInfo(findJTable(VR_ANALYTE_RTABLE).getCellText(0, 2));
+    logInfo(findJTable(VR_ANALYTE_RTABLE).getCellText(0, 3));
+
   }
 
 }

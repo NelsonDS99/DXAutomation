@@ -54,6 +54,7 @@ public class MeltVerification extends MeltVerifyResult
     for (String key : sampleIDList.keySet()) {
 
       logInfo(key);
+      setMap(key);
       // Add key to htmlData
       htmlValue = new ArrayList<String>();
       htmlValue.add(key);
@@ -92,7 +93,7 @@ public class MeltVerification extends MeltVerifyResult
 
       // Check the disclaimer box
       String resultDisclaimer = resultDisclaimer(sheet, key);
-      htmlValue.add(verifyDisclaimer(resultDisclaimer));
+      htmlValue.add(verifyDisclaimer(resultDisclaimer, key));
 
       HSSFSheet analyteSheet = openHSSFSheet(workbook, key);
 
@@ -119,6 +120,9 @@ public class MeltVerification extends MeltVerifyResult
       count++;
       logInfo("====================");
     }
+    
+    convertToTrue();
+    mapToHTML();
     try {
       document = String.format("%s-%s", document, workSheet);
       html(htmlData, htmlAnalyteR, htmlAnalyteD, htmlAnalyteMelt, true, document);
@@ -129,13 +133,5 @@ public class MeltVerification extends MeltVerifyResult
     logInfo(String.format("I analyzed %s test results", count));
   }
 
-  // @Test
-  public void test ()
-  {
-    logInfo(findJTable(VR_ANALYTE_RTABLE).getCellText(0, 0));
-    logInfo(findJTable(VR_ANALYTE_RTABLE).getCellText(0, 2));
-    logInfo(findJTable(VR_ANALYTE_RTABLE).getCellText(0, 3));
-
-  }
 
 }

@@ -67,20 +67,17 @@ public class ExcelMethods extends ApplicationFunctions
     int colStatic = 0;
     Row row = sheet.getRow(rowNum);
     ArrayList<String> expectedSampleID = new ArrayList<String>();
-    ArrayList<String> expectedHolder = new ArrayList<String>();
     ArrayList<String> staticList = new ArrayList<String>();
     Map<String, ArrayList<String>> expectedData = new HashMap<String, ArrayList<String>>();
 
     while (isRowEmpty(sheet, rowNum) == false && checkIfCellIsEmpty(row, 0) == false) {
       if (!expectedSampleID.contains(row.getCell(0).toString())) {
         staticList = new ArrayList<String>();
-        expectedHolder = new ArrayList<String>();
         expectedSampleID.add(row.getCell(0).toString());
         staticList.add(row.getCell(1).toString());
         staticList.add(row.getCell(2).toString());
         staticList.add(row.getCell(3).toString());
-        expectedHolder.addAll(staticList);
-        expectedData.put(expectedSampleID.get(colStatic), expectedHolder);
+        expectedData.put(expectedSampleID.get(colStatic), staticList);
         colStatic++;
       }
 

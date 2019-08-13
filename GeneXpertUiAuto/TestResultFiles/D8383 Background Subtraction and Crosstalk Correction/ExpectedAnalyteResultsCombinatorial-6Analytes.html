@@ -87,6 +87,7 @@ border: 1px solid green;
  </style> 
 <table style="width:100%">
 <tr>
+<th>Pass / Fail</th>
 <th>Sample ID</th>
 <th>Verification Sample ID</th>
 <th>Verification Assay Name</th>
@@ -98,6 +99,7 @@ border: 1px solid green;
 <th>Verification of Disclaimer</th>
 </tr>
 <tr>
+<td style= "background-color:#00FF00"><pre>PASS</pre></td>
 <td><pre>SWTestD8383CTNG.A1</pre></td>
 <td><pre>Actual ID:   SWTestD8383CTNG.A1 
 Expected ID: SWTestD8383CTNG.A1</pre></td>
@@ -120,7 +122,8 @@ Expected Text: CT POSITIVE
 <td><pre>Actual BC: tr.row0 { background-color: #FF0000; color: #FFFFFF }
 Actual BC: tr.row1 { background-color: #FF0000; color: #FFFFFF }
 </pre></td>
-<td><pre>Actual Disclaimer: For Research Use Only 
+<td style="background-color:#FFFF00"><pre>*** 
+Actual Disclaimer: For Research Use Only 
 Expected Disclaimer: ""</pre></td>
 </tr>
 </table>
@@ -143,6 +146,7 @@ border: 1px solid green;
  </style> 
 <table style="width:100%">
 <tr>
+<th>Pass / Fail</th>
 <th>Verification of Analyte Name</th>
 <th>Verification of Ct</th>
 <th>Verification of End Pt</th>
@@ -151,6 +155,7 @@ border: 1px solid green;
 <th>Verification of Analyte Result</th>
 </tr>
 <tr>
+<td style="background-color:#FF0000"><pre>FAIL</pre></td>
 <td><pre>Analyte Name: NG2</pre></td>
 <td><pre>Actual Ct:   34.7 
 Expected Ct: 34.7</pre></td>
@@ -161,10 +166,11 @@ Actual Interpretation Result:   POS
 Expected Interpretation Result: NA </pre></td>
 <td style="background-color:#FFFF00"><pre>*** 
 Actual Reason:    
-Expected Reason: NA</pre></td>
+Expected Reason: </pre></td>
 <td><pre>Actual Analyte Result:   POS 
 Expected Analyte Reason: POS</pre></td>
 </tr>
+<td style="background-color:#FF0000"><pre>FAIL</pre></td>
 <td><pre>Analyte Name: NG4</pre></td>
 <td><pre>Actual Ct:   33.6 
 Expected Ct: 33.6</pre></td>
@@ -175,10 +181,11 @@ Actual Interpretation Result:   POS
 Expected Interpretation Result: NA </pre></td>
 <td style="background-color:#FFFF00"><pre>*** 
 Actual Reason:    
-Expected Reason: NA</pre></td>
+Expected Reason: </pre></td>
 <td><pre>Actual Analyte Result:   POS 
 Expected Analyte Reason: POS</pre></td>
 </tr>
+<td style="background-color:#FF0000"><pre>FAIL</pre></td>
 <td><pre>Analyte Name: CT1</pre></td>
 <td><pre>Actual Ct:   33.3 
 Expected Ct: 33.3</pre></td>
@@ -189,10 +196,11 @@ Actual Interpretation Result:   POS
 Expected Interpretation Result: NA </pre></td>
 <td style="background-color:#FFFF00"><pre>*** 
 Actual Reason:    
-Expected Reason: NA</pre></td>
+Expected Reason: </pre></td>
 <td><pre>Actual Analyte Result:   POS 
 Expected Analyte Reason: POS</pre></td>
 </tr>
+<td style="background-color:#FF0000"><pre>FAIL</pre></td>
 <td><pre>Analyte Name: CT2</pre></td>
 <td><pre>Actual Ct:   36.1 
 Expected Ct: 36.1</pre></td>
@@ -203,10 +211,11 @@ Actual Interpretation Result:   POS
 Expected Interpretation Result: NA </pre></td>
 <td style="background-color:#FFFF00"><pre>*** 
 Actual Reason:    
-Expected Reason: NA</pre></td>
+Expected Reason: </pre></td>
 <td><pre>Actual Analyte Result:   POS 
 Expected Analyte Reason: POS</pre></td>
 </tr>
+<td style="background-color:#FF0000"><pre>FAIL</pre></td>
 <td><pre>Analyte Name: SAC</pre></td>
 <td><pre>Actual Ct:   32.9 
 Expected Ct: 32.9</pre></td>
@@ -217,10 +226,11 @@ Actual Interpretation Result:   PASS
 Expected Interpretation Result: NA </pre></td>
 <td style="background-color:#FFFF00"><pre>*** 
 Actual Reason:    
-Expected Reason: NA</pre></td>
+Expected Reason: </pre></td>
 <td><pre>Actual Analyte Result:   NA 
 Expected Analyte Reason: NA</pre></td>
 </tr>
+<td style="background-color:#FF0000"><pre>FAIL</pre></td>
 <td><pre>Analyte Name: SPC</pre></td>
 <td><pre>Actual Ct:   33.3 
 Expected Ct: 33.3</pre></td>
@@ -231,7 +241,7 @@ Actual Interpretation Result:   PASS
 Expected Interpretation Result: NA </pre></td>
 <td style="background-color:#FFFF00"><pre>*** 
 Actual Reason:    
-Expected Reason: NA</pre></td>
+Expected Reason: </pre></td>
 <td><pre>Actual Analyte Result:   NA 
 Expected Analyte Reason: NA</pre></td>
 </tr>
@@ -253,6 +263,7 @@ border: 1px solid green;
  </style> 
 <table style="width:100%">
 <tr>
+<th>Pass / Fail</th>
 <th>Verification of Analyte Details Name</th>
 <th>Verification of Prb Check 1</th>
 <th>Verification of Prb Check 2</th>
@@ -261,6 +272,7 @@ border: 1px solid green;
 <th>Verification of 2nd Deriv Peak</th>
 </tr>
 <tr>
+<td style="background-color:#00FF00"><pre>PASS</pre></td>
 <td><pre>Analyte Name: NG2</pre></td>
 <td><pre>Actual PrbChk1:   253 
 Expected PrbChk1: 253</pre></td>
@@ -273,6 +285,7 @@ Expected Probe Check Result: PASS</pre></td>
 <td><pre>Actual 2nd Deriv Peak:   607.9 
 Expected 2nd Deriv Peak: 607.9</pre></td>
 </tr>
+<td style="background-color:#00FF00"><pre>PASS</pre></td>
 <td><pre>Analyte Name: NG4</pre></td>
 <td><pre>Actual PrbChk1:   49 
 Expected PrbChk1: 49</pre></td>
@@ -285,6 +298,7 @@ Expected Probe Check Result: PASS</pre></td>
 <td><pre>Actual 2nd Deriv Peak:   0.0 
 Expected 2nd Deriv Peak: 0.0</pre></td>
 </tr>
+<td style="background-color:#00FF00"><pre>PASS</pre></td>
 <td><pre>Analyte Name: CT1</pre></td>
 <td><pre>Actual PrbChk1:   325 
 Expected PrbChk1: 325</pre></td>
@@ -297,6 +311,7 @@ Expected Probe Check Result: PASS</pre></td>
 <td><pre>Actual 2nd Deriv Peak:   0.0 
 Expected 2nd Deriv Peak: 0.0</pre></td>
 </tr>
+<td style="background-color:#00FF00"><pre>PASS</pre></td>
 <td><pre>Analyte Name: CT2</pre></td>
 <td><pre>Actual PrbChk1:   185 
 Expected PrbChk1: 185</pre></td>
@@ -309,6 +324,7 @@ Expected Probe Check Result: PASS</pre></td>
 <td><pre>Actual 2nd Deriv Peak:   466.3 
 Expected 2nd Deriv Peak: 466.3</pre></td>
 </tr>
+<td style="background-color:#00FF00"><pre>PASS</pre></td>
 <td><pre>Analyte Name: SAC</pre></td>
 <td><pre>Actual PrbChk1:   159 
 Expected PrbChk1: 159</pre></td>
@@ -321,6 +337,7 @@ Expected Probe Check Result: PASS</pre></td>
 <td><pre>Actual 2nd Deriv Peak:   0.0 
 Expected 2nd Deriv Peak: 0.0</pre></td>
 </tr>
+<td style="background-color:#00FF00"><pre>PASS</pre></td>
 <td><pre>Analyte Name: SPC</pre></td>
 <td><pre>Actual PrbChk1:   348 
 Expected PrbChk1: 348</pre></td>

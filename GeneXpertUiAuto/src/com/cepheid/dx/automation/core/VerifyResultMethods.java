@@ -9,6 +9,8 @@ import com.microfocus.silktest.jtf.swing.JTable;
 
 public class VerifyResultMethods extends htmlCreator
 {
+  Map<String, Boolean> PF = new HashMap<String, Boolean>();
+
   /*
    * Compares SampleID of expectedData, finds similarities in JTable and maps
    * locations
@@ -59,7 +61,7 @@ public class VerifyResultMethods extends htmlCreator
     String leftStatus;
     ArrayList<String> returnVal = new ArrayList<String>();
 
-    sleep(10);
+    sleep(20);
     if (exists(VR_STATUS_BOX)) {
       leftStatus = findJTextField(VR_STATUS_BOX).getText();
     } else
@@ -70,22 +72,25 @@ public class VerifyResultMethods extends htmlCreator
     // Compare Sample ID
     if (expectedData.containsKey(leftSampleID)) {
       returnVal.add(String.format("Actual ID:   %s \nExpected ID: %s", leftSampleID, key));
-    } else
+    } else {
       returnVal.add(String.format("Error. Actual ID:   %s \n Expected ID:   %s", leftSampleID, key));
-
+      updateFail(key);
+    }
     // Compare Assay Name
     if (exAssayName.equals(leftAssayName)) {
       returnVal.add(String.format("Actual Assay Name:   %s \nExpected Assay Name: %s", leftAssayName, exAssayName));
-    } else
+    } else {
       returnVal
           .add(String.format("Error. \nActual Assay Name    %s \nExpected Assay Name: %s", leftAssayName, exAssayName));
-
+      updateFail(key);
+    }
     // Compare Status
     if (exLeftStatus.equals(leftStatus)) {
       returnVal.add(String.format("Actual Status:   %s \nExpected Status: %s", leftStatus, exLeftStatus));
-    } else
+    } else {
       returnVal.add(String.format("Error. \nActual Status:   %s \nExpected Status: %s ", leftStatus, exLeftStatus));
-
+      updateFail(key);
+    }
     return returnVal;
   }
 
@@ -107,9 +112,10 @@ public class VerifyResultMethods extends htmlCreator
 
     if (exAssayName.equals(assayName)) {
       resultVal = String.format("Actual Assay Name:   %s \nExpected Assay Name: %s", assayName, exAssayName);
-    } else
+    } else {
       resultVal = String.format("Error.\nActual Assay Name:   %s \nExpected Assay Name: %s", assayName, exAssayName);
-
+      updateFail(key);
+    }
     return resultVal;
   }
 
@@ -128,10 +134,11 @@ public class VerifyResultMethods extends htmlCreator
       if (iterator.trim().equals(resultText.get(0))) {
         resultVal = resultVal
             .concat(String.format("Actual Text:   %s \nExpected Text: %s\r\n", iterator, resultText.get(0)));
-      } else
+      } else {
         resultVal = resultVal
             .concat(String.format("Error.\nActual Text:   %s \nExpected Text: %s\r\n", iterator, resultText.get(0)));
-
+        updateFail(key);
+      }
       resultVal = resultVal.concat("\r\n");
       resultText.remove(0);
     }
@@ -161,9 +168,10 @@ public class VerifyResultMethods extends htmlCreator
         // Check if row information is correct
         if (formattedText.indexOf(rowInfo) != -1) {
           resultVal = resultVal.concat(String.format("Actual BC: %s", rowInfo));
-        } else
+        } else {
           resultVal = resultVal.concat(String.format("Error.\nActual BC: %s", rowInfo));
-
+          updateFail(key);
+        }
       } else
         resultVal = resultVal.concat(String.format("$$$ \nRow does not Exist: \n %s", rowGUI));
 
@@ -198,10 +206,11 @@ public class VerifyResultMethods extends htmlCreator
     // Verify the error status
     if (exErrorStatus.equals(errorStatus)) {
       returnVal.add(String.format("Actual Error Status:   %s \nExpected Error Status: %s", errorStatus, exErrorStatus));
-    } else
+    } else {
       returnVal.add(
           String.format("Error. \nActual Error Status:   %s \nExpected Error Status: %s", errorStatus, exErrorStatus));
-
+      updateFail(key);
+    }
     return returnVal;
   }
 
@@ -215,36 +224,42 @@ public class VerifyResultMethods extends htmlCreator
     String key = analyteR.get(0);
     String exCt = exAnalyteData.get(key).get(0);
     String exEndPt = exAnalyteData.get(key).get(1);
-    String exInterpretation = exAnalyteData.get(key).get(2);
+    String exInterpretation = exAnalyteData.get(key).get(2).trim();
     String exReason = exAnalyteData.get(key).get(3);
-    String exAnalyteResult = exAnalyteData.get(key).get(4);
+    String exAnalyteResult = exAnalyteData.get(key).get(4).trim();
 
+    resultVal.add("PASS");
     // Compare AnalyteNames
     if (exAnalyteData.containsKey(key)) {
       resultVal.add(String.format("Analyte Name: %s", analyteR.get(0)));
-    } else
+    } else {
       resultVal.add(String.format("Analyte Names are Incorrect: %s", analyteR.get(0)));
+      resultVal.set(0, "FAIL");
+    }
 
     // Compare Ct
     if (exCt.equals(analyteR.get(2))) {
       resultVal.add(String.format("Actual Ct:   %s \nExpected Ct: %s", analyteR.get(2), exCt));
-    } else
+    } else {
       resultVal.add(String.format("Error.\nActual Ct:   %s \nExpected Ct: %s", analyteR.get(2), exCt));
-
+      resultVal.set(0, "FAIL");
+    }
     // Compare EndPt
     if (exEndPt.equals(analyteR.get(3))) {
       resultVal.add(String.format("Actual EndPt:   %s \nExpected EndPt: %s", analyteR.get(3), exEndPt));
-    } else
+    } else {
       resultVal.add(String.format("Error.\nActual EndPt:   %s \nExpected EndPt: %s", analyteR.get(3), exEndPt));
-
+      resultVal.set(0, "FAIL");
+    }
     // Compare Interpretation Result
     if (exInterpretation.equals(analyteR.get(4))) {
       resultVal.add(String.format("Actual Interpretation Result:   %s \nExpected Interpretation Result: %s ",
           analyteR.get(4), exInterpretation));
-    } else
+    } else {
       resultVal.add(String.format("Error.\nActual Interpretation Result:   %s \nExpected Interpretation Result: %s ",
           analyteR.get(4), exInterpretation));
-
+      resultVal.set(0, "FAIL");
+    }
     // Compare reason
     if (exReason.equals(analyteR.get(5))) {
       resultVal.add(String.format("Actual Reason:   %s \nExpected Reason: %s ", analyteR.get(5), exReason));
@@ -257,30 +272,35 @@ public class VerifyResultMethods extends htmlCreator
       // Check if the analyte has a different meaning
       else if (analyteR.get(5).equals("No Ct") || analyteR.get(5).equals("NO RESULT")) {
         resultVal.add(String.format("*** \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
-      } else
+      } else {
         resultVal.add(String.format("Error. \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
+        resultVal.set(0, "FAIL"); 
+      }
     }
     // Check for exceptions of No CT
     else if (exReason.equals("No Ct")) {
       if (analyteR.get(5).equals("")) {
         resultVal.add(String.format("*** \nActual Reason   %s \nExpected Reason: %s ", analyteR.get(5), exReason));
-      } else
+      } else {
         resultVal.add(String.format("Error. \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
-
+        resultVal.set(0, "FAIL"); 
+      }
     }
     // Produce error if Ct not found
-    else
+    else {
       resultVal.add(String.format("Error.\nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
-
+      resultVal.set(0, "FAIL");
+    }
     // Compare Analyte Result
     if (exAnalyteResult.equals(analyteR.get(6))) {
       resultVal.add(
-          String.format("Actual Analyte Result:   %s \nExpected Analyte Reason: %s", analyteR.get(6), exAnalyteResult));
+          String.format("Actual Analyte Result:   %s \nExpected Analyte Result: %s", analyteR.get(6), exAnalyteResult));
 
-    } else
-      resultVal.add(String.format("Error.\nActual Analyte Result:  %s \nExpected Analyte Reason %s", analyteR.get(6),
+    } else {
+      resultVal.add(String.format("Error.\nActual Analyte Result:  %s \nExpected Analyte Result: %s", analyteR.get(6),
           exAnalyteResult));
-
+      resultVal.set(0, "FAIL"); 
+    }
     return resultVal;
   }
 
@@ -301,55 +321,64 @@ public class VerifyResultMethods extends htmlCreator
 
     exPrbChkResult = verifyPCR(exPrbChkResult);
     exDerivPeak = verify2ndDeriv(exDerivPeak);
+    
+    resultVal.add("PASS");
 
     // Compare Analyte Names
     if (exAnalyteData.containsKey(key)) {
       resultVal.add(String.format("Analyte Name: %s", key));
 
-    } else
+    } else {
       resultVal.add(String.format("Error. Analyte Name is Wrong %s", key));
+      resultVal.set(0, "FAIL");
+    }
 
     // Compare PrbChk1
     if (exPrbChk1.equals(analyteD.get(2)) || exPrbChk1.equals("NA")) {
       resultVal.add(String.format("Actual PrbChk1:   %s \nExpected PrbChk1: %s", analyteD.get(2), exPrbChk1));
-    } else
+    } else {
       resultVal.add(String.format("Error.\nActual PrbChk1:   %s \nExpected PrbChk1: %s", analyteD.get(2), exPrbChk1));
-
+      resultVal.set(0, "FAIL");
+    }
     // Compare PrbChk2
     if (exPrbChk2.equals(analyteD.get(3)) || exPrbChk2.equals("NA")) {
       resultVal.add(String.format("Actual PrbChk2:   %s \nExpected PrbChk2: %s", analyteD.get(3), exPrbChk2));
-    } else
+    } else {
       resultVal.add(String.format("Error.\nActual PrbChk2:   %s \nExpected PrbChk2: %s", analyteD.get(3), exPrbChk2));
-
+      resultVal.set(0, "FAIL");
+    }
     // Compare PrbChk3
     if (exPrbChk3.equals(analyteD.get(4)) || exPrbChk3.equals("NA")) {
       resultVal.add(String.format("Actual PrbChk3:   %s \nExpected PrbChk3: %s", analyteD.get(4), exPrbChk3));
-    } else
+    } else {
       resultVal.add(String.format("Error.\nActual PrbChk3:   %s \nExpected PrbChk3: %s", analyteD.get(4), exPrbChk3));
-
+      resultVal.set(0, "FAIL");
+    }
     // Compare Probe Check Result
     if (exPrbChkResult.equals(analyteD.get(5))) {
       resultVal.add(String.format("Actual Probe Check Result:   %s \nExpected Probe Check Result: %s", analyteD.get(5),
           exPrbChkResult));
-    } else
+    } else {
       resultVal.add(String.format("Error. \nActual Probe Check Result:   %s \nExpected Probe Check Result: %s",
           analyteD.get(5), exPrbChkResult));
-
+      resultVal.set(0, "FAIL");
+    }
     // Compare 2nd Deriv Peak
     if (exDerivPeak.equals(analyteD.get(6))) {
       resultVal.add(
           String.format("Actual 2nd Deriv Peak:   %s \nExpected 2nd Deriv Peak: %s", analyteD.get(6), exDerivPeak));
-    } else
+    } else {
       resultVal.add(String.format("Error.\nActual 2nd Deriv Peak:   %s \nExpected 2nd Deriv Peak: %s", analyteD.get(6),
           exDerivPeak));
-
+      resultVal.set(0, "FAIL");
+    }
     return resultVal;
   }
 
   /*
    * Verify the text in the disclaimer box of GUI
    */
-  public String verifyDisclaimer (String exDisclaimer)
+  public String verifyDisclaimer (String exDisclaimer, String key)
   {
     String verify = verifyBoxDisclaimer();
     String GUIText;
@@ -376,8 +405,10 @@ public class VerifyResultMethods extends htmlCreator
     } else {
       if (GUIText.equals("For Research Use Only")) {
         resultVal = String.format("*** \nActual Disclaimer: %s \nExpected Disclaimer: \"\"", GUIText);
-      } else
+      } else {
         resultVal = String.format("Error.\n Actual Disclaimer: %s \nExpected Disclaimer %s", GUIText, exDisclaimer);
+        updateFail(key);
+      }
     }
     resultVal = resultVal.replace(".", ".\n");
     return resultVal;
@@ -446,6 +477,34 @@ public class VerifyResultMethods extends htmlCreator
       return "2";
     } else
       return "-1";
+  }
+
+  public void setMap (String key)
+  {
+    PF.put(key, null);
+  }
+  
+  public void convertToTrue()
+  {
+    for(String key: PF.keySet())
+    {
+      if(PF.get(key) == null)
+        PF.put(key, true);
+      logInfo(key + PF.get(key) + " ");
+      }
+     
+  }
+  
+  public void mapToHTML()
+  {
+    setPF(PF); 
+  }
+
+  private void updateFail (String key)
+  {
+    if (PF.get(key) == null) {
+      PF.put(key, false);
+    }
   }
 
 }

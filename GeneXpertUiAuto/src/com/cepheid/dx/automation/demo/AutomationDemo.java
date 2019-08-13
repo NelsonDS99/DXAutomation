@@ -52,12 +52,13 @@ public class AutomationDemo extends VerifyResultMethods
     for (String key : sampleIDList.keySet()) {
 
       logInfo(key);
+      setMap(key);
       // Add key to htmlData
       htmlValue = new ArrayList<String>();
       htmlValue.add(key);
       // Analyte Results Storage
       htmlARValue = new ArrayList<String>();
-
+      // Analyte Detail Storage
       htmlADValue = new ArrayList<String>();
 
       // Click Specific Assay in JTable
@@ -88,7 +89,7 @@ public class AutomationDemo extends VerifyResultMethods
 
       // Check the disclaimer box
       String resultDisclaimer = resultDisclaimer(sheet, key);
-      htmlValue.add(verifyDisclaimer(resultDisclaimer));
+      htmlValue.add(verifyDisclaimer(resultDisclaimer,key));
 
       HSSFSheet analyteSheet = openHSSFSheet(workbook, key);
 
@@ -132,6 +133,10 @@ public class AutomationDemo extends VerifyResultMethods
 
       logInfo("====================");
     }
+    
+    convertToTrue(); 
+    mapToHTML();
+    
     try {
       document = String.format("%s-%s", document, workSheet);
       html(htmlData, htmlAnalyteR, htmlAnalyteD, null, false, document);

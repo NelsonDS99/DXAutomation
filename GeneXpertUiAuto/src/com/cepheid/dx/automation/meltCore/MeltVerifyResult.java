@@ -11,9 +11,10 @@ import com.microfocus.silktest.jtf.swing.JTable;
 
 public class MeltVerifyResult extends VerifyResultMethods
 {
-  
+
   /*
-   * Verifies the analyte result tab, iterates through the excel and analyte tables one at a time
+   * Verifies the analyte result tab, iterates through the excel and analyte
+   * tables one at a time
    */
   public ArrayList<String> verifyResultsTab (HSSFSheet sheet)
   {
@@ -26,6 +27,7 @@ public class MeltVerifyResult extends VerifyResultMethods
       ArrayList<String> resultVal = new ArrayList<String>();
       Map<Integer, String> analyteData = extractAnalyteData(jRow);
       String excelAnalyteName = getExcelAnalyte(row);
+      resultVal.add("PASS");
 
       if (analyteData.get(0).equals(excelAnalyteName)) {
         ArrayList<String> exAnalyteR = getExcelAnalyteResults(row);
@@ -35,37 +37,47 @@ public class MeltVerifyResult extends VerifyResultMethods
         // Compare Ct
         if (exAnalyteR.get(0).equals(analyteData.get(2))) {
           resultVal.add(String.format("Actual Ct:  %s \nExpected Ct:  %s", analyteData.get(2), exAnalyteR.get(0)));
-        } else
+        } else {
           resultVal
               .add(String.format("Error.\nActual Ct:  %s \nExpected Ct:  %s", analyteData.get(2), exAnalyteR.get(0)));
+          resultVal.set(0, "FAIL");
+        }
         // Compare endPt
         if (exAnalyteR.get(1).equals(analyteData.get(3))) {
           resultVal
               .add(String.format("Actual EndPt:   %s \nExpected EndPt: %s", analyteData.get(3), exAnalyteR.get(1)));
-        } else
+        } else {
           resultVal.add(
               String.format("Error.\nActual EndPt:   %s \nExpected EndPt: %s", analyteData.get(3), exAnalyteR.get(1)));
+          resultVal.set(0, "FAIL");
+        }
         // Compare Interpretation
         if (exAnalyteR.get(2).equals(analyteData.get(4))) {
           resultVal.add(String.format("Actual Interpretation:   %s \nExpected Interpretation: %s", analyteData.get(4),
               exAnalyteR.get(2)));
-        } else
+        } else {
           resultVal.add(String.format("Error.\nActual Interpretation:   %s \nExpected Interpretation: %s",
               analyteData.get(4), exAnalyteR.get(2)));
+          resultVal.set(0, "FAIL");
+        }
         // Compare Reason
         if (exAnalyteR.get(3).equals(analyteData.get(5))) {
           resultVal
               .add(String.format("Actual Reason:  %s \nExpected Reason: %s ", analyteData.get(5), exAnalyteR.get(3)));
-        } else
+        } else {
           resultVal.add(String.format("Error.\nActual Reason:  %s \nExpected Reason: %s ", analyteData.get(5),
               exAnalyteR.get(3)));
+          resultVal.set(0, "FAIL");
+        }
+        // Compare Analyte Result
         if (exAnalyteR.get(4).equals(analyteData.get(6))) {
           resultVal.add(String.format("Actual Analyte Result:  %s \nExpected Analyte Result: %s", analyteData.get(6),
               exAnalyteR.get(4)));
-        } else
-          String.format("Actual Analyte Result:  %s \nExpected Analyte Result: %s", analyteData.get(6),
+        } else {
+          String.format("Error.\nActual Analyte Result:  %s \nExpected Analyte Result: %s", analyteData.get(6),
               exAnalyteR.get(4));
-
+          resultVal.set(0, "FAIL");
+        }
         htmlAR.addAll(resultVal);
         excelRow++;
         row = sheet.getRow(excelRow);
@@ -90,6 +102,7 @@ public class MeltVerifyResult extends VerifyResultMethods
       ArrayList<String> resultVal = new ArrayList<String>();
       Map<Integer, String> analyteData = extractAnalyteData(jRow);
       String excelAnalyteName = getExcelAnalyte(row);
+      resultVal.add("PASS");
 
       if (excelAnalyteName.equals(analyteData.get(0))) {
         ArrayList<String> exAnalyteD = getExcelAnalyteDetails(row);
@@ -100,41 +113,47 @@ public class MeltVerifyResult extends VerifyResultMethods
         if (exAnalyteD.get(1).equals(analyteData.get(2))) {
           resultVal
               .add(String.format("Actual PrbChk1:   %s \nExpected PrbChk1: %s", analyteData.get(2), exAnalyteD.get(1)));
-        } else
+        } else {
           resultVal.add(String.format("Error.\nActual PrbChk1:   %s \nExpected PrbChk1: %s", analyteData.get(2),
               exAnalyteD.get(1)));
-
+          resultVal.set(0, "FAIL");
+        }
         // Compare Prb Chk 2
         if (exAnalyteD.get(2).equals(analyteData.get(3))) {
           resultVal
-              .add(String.format("Actual PrbChk2:  %s \nExpected PrbChk2: %s", analyteData.get(3), exAnalyteD.get(2)));
-        } else
-          resultVal.add(String.format("Error.\nActual PrbChk2:  %s \nExpected PrbChk2: %s", analyteData.get(3),
+              .add(String.format("Actual PrbChk2:   %s \nExpected PrbChk2: %s", analyteData.get(3), exAnalyteD.get(2)));
+        } else {
+          resultVal.add(String.format("Error.\nActual PrbChk2:   %s \nExpected PrbChk2: %s", analyteData.get(3),
               exAnalyteD.get(2)));
-
+          resultVal.set(0, "FAIL");
+        }
         // Compare Prb Chk 3
         if (exAnalyteD.get(3).equals(analyteData.get(4))) {
           resultVal
-              .add(String.format("Actual PrbChk3:  %s \nExpected PrbChk3: %s", analyteData.get(4), exAnalyteD.get(3)));
-        } else
-          resultVal
-              .add(String.format("Actual PrbChk3:  %s \nExpected PrbChk3: %s", analyteData.get(4), exAnalyteD.get(3)));
-
+              .add(String.format("Actual PrbChk3:   %s \nExpected PrbChk3: %s", analyteData.get(4), exAnalyteD.get(3)));
+        } else {
+          resultVal.add(String.format("Error. \nActual PrbChk3:   %s \nExpected PrbChk3: %s", analyteData.get(4),
+              exAnalyteD.get(3)));
+          resultVal.set(0, "FAIL");
+        }
         // Compare PrbChkResult
         if (exAnalyteD.get(0).equals(analyteData.get(5))) {
-          resultVal.add(String.format("Actual PrbChkResult:  %s \nExpected PrbChkResult: %s", analyteData.get(5),
+          resultVal.add(String.format("Actual PrbChkResult:   %s \nExpected PrbChkResult: %s", analyteData.get(5),
               exAnalyteD.get(0)));
-        } else
-          resultVal.add(String.format("Error.\nActual PrbChkResult:  %s \nExpected PrbChkResult: %s",
+        } else {
+          resultVal.add(String.format("Error.\nActual PrbChkResult:   %s \nExpected PrbChkResult: %s",
               analyteData.get(5), exAnalyteD.get(0)));
-
+          resultVal.set(0, "FAIL");
+        }
         // Compare 2nd Deriv
         if (exAnalyteD.get(4).equals(analyteData.get(6))) {
           resultVal.add(
-              String.format("Actual 2ndDeriv:  %s \nExpected 2ndDeriv: %s", analyteData.get(6), exAnalyteD.get(4)));
-        } else
-          resultVal.add(String.format("Error.\nActual 2ndDeriv:  %s \nExpected 2ndDeriv: %s", analyteData.get(6),
+              String.format("Actual 2ndDeriv:   %s \nExpected 2ndDeriv: %s", analyteData.get(6), exAnalyteD.get(4)));
+        } else {
+          resultVal.add(String.format("Error.\nActual 2ndDeriv:   %s \nExpected 2ndDeriv: %s", analyteData.get(6),
               exAnalyteD.get(4)));
+          resultVal.set(0, "FAIL");
+        }
 
         htmlAD.addAll(resultVal);
         excelRow++;
@@ -161,6 +180,7 @@ public class MeltVerifyResult extends VerifyResultMethods
       ArrayList<String> resultVal = new ArrayList<String>();
       Map<Integer, String> analyteMeltData = extractAnalyteMeltData(jRow);
       String analyteName = getExcelAnalyte(row);
+      resultVal.add("PASS");
 
       if (analyteName.equals(analyteMeltData.get(0))) {
         ArrayList<String> exAnalyteMelt = getExcelAnalyteMelt(row);
@@ -169,15 +189,16 @@ public class MeltVerifyResult extends VerifyResultMethods
 
         // Compare Melt Peak Temp
         if (exAnalyteMelt.get(0).equals(analyteMeltData.get(2))) {
-          resultVal.add(String.format("Actual Melt Peak Temp:  %s \nExpected Melt Peak Temp:  %s",
+          resultVal.add(String.format("Actual Melt Peak Temp:    %s \nExpected Melt Peak Temp:  %s",
               analyteMeltData.get(2), exAnalyteMelt.get(0)));
         } else if ("".equals(analyteMeltData.get(2)) && "NA".equals(exAnalyteMelt.get(0))) {
           resultVal.add(
-              String.format("Actual Melt Peak Temp:  %s \nExpected Melt Peak Temp:  %s", analyteMeltData.get(2), ""));
-        } else
+              String.format("Actual Melt Peak Temp:   %s \nExpected Melt Peak Temp:  %s", analyteMeltData.get(2), ""));
+        } else {
           resultVal.add(String.format("Error.\nActual Melt Peak Temp:  %s \nExpected Melt Peak Temp:  %s",
               analyteMeltData.get(2), exAnalyteMelt.get(0)));
-
+          resultVal.set(0, "FAIL");
+        }
         // Compare Melt Peak Height
         if (exAnalyteMelt.get(1).equals(analyteMeltData.get(3))) {
           resultVal.add(String.format("Actual Melt Peak Height:   %s \nExpected Melt Peak Height: %s",
@@ -185,10 +206,11 @@ public class MeltVerifyResult extends VerifyResultMethods
         } else if ("".equals(analyteMeltData.get(3)) && "NA".equals(exAnalyteMelt.get(1))) {
           resultVal.add(String.format("Actual Melt Peak Height:   %s \nExpected Melt Peak Height: %s",
               analyteMeltData.get(3), ""));
-        } else
+        } else {
           resultVal.add(String.format("Error.\nActual Melt Peak Height:   %s \nExpected Melt Peak Height: %s",
               analyteMeltData.get(3), exAnalyteMelt.get(1)));
-
+          resultVal.set(0, "FAIL");
+        }
         htmlMelt.addAll(resultVal);
         excelRow++;
         row = sheet.getRow(excelRow);
@@ -199,7 +221,8 @@ public class MeltVerifyResult extends VerifyResultMethods
   }
 
   /*
-   * Get the expected analyte data values that correspond with the analyte results tab
+   * Get the expected analyte data values that correspond with the analyte results
+   * tab
    * 
    */
   private ArrayList<String> getExcelAnalyteResults (Row row)

@@ -9,8 +9,9 @@ import java.util.Map;
 public class htmlCreator extends ExcelMethods
 {
   String htmlCode = "";
+  Map<String, Boolean> P_F;
   
-
+  
   public void html (ArrayList<ArrayList<String>> htmlList, Map<String, ArrayList<String>> htmlAnalyteR,
       Map<String, ArrayList<String>> htmlAnalyteD,Map<String, ArrayList<String>> htmlAnalyteMelt, boolean melt, String document) throws IOException
   {
@@ -21,6 +22,7 @@ public class htmlCreator extends ExcelMethods
 
     //Create strings
     
+    final String finalResult                                                = "Pass / Fail"; 
     final String SampleID                                                   = "Sample ID";
     final String verifySampleID                                             = "Verification Sample ID";
     final String verifyAssayName                                            = "Verification Assay Name";
@@ -54,7 +56,7 @@ public class htmlCreator extends ExcelMethods
     String htmlStarter                                                      = htmlStarter();
     String htmlEnder                                                        = htmlEnder();
     String header                                                           = htmlHeader(document);
-    String tableHeaderCells                                                 = tableHeaderCells(SampleID, verifySampleID, verifyAssayName, verifyStatus, verifyErrorStatus, verifyAssayNameR,
+    String tableHeaderCells                                                 = tableHeaderCells(finalResult, SampleID, verifySampleID, verifyAssayName, verifyStatus, verifyErrorStatus, verifyAssayNameR,
                                                                                verifyTextBox,verifyResultColor, verifyDisclaimer);
     String assayHeader                                                      = "<h3><u>Assay Verification</u></h3>\r\n";
     
@@ -66,15 +68,15 @@ public class htmlCreator extends ExcelMethods
     String styleRows                                                        = styleRows();
     String styleExtra                                                       = styleExtra();
     String errorHeaders                                                     = tableHeaderCells("Sample ID", "Error");
-    String analyteResultsHeaders                                            = tableHeaderCells(verifyAnalyteName,verifyCt, verifyEndPt, verifyInterp, verifyAnalyteReason, verifyAnalyteResult);
-    String analyteDetailHeader                                              = tableHeaderCells(verifyAnalyteDName, verifyPrbChk1, verifyPrbChk2,verifyPrbChk3, verifyPrbChkResult, verifyDerivPeak);
-    String analyteMeltHeader                                                = tableHeaderCells(verifyAnalyteName,verifyMeltPeak,verifyMeltPeakHeight);
+    String analyteResultsHeaders                                            = tableHeaderCells(finalResult,verifyAnalyteName,verifyCt, verifyEndPt, verifyInterp, verifyAnalyteReason, verifyAnalyteResult);
+    String analyteDetailHeader                                              = tableHeaderCells(finalResult,verifyAnalyteDName, verifyPrbChk1, verifyPrbChk2,verifyPrbChk3, verifyPrbChkResult, verifyDerivPeak);
+    String analyteMeltHeader                                                = tableHeaderCells(finalResult,verifyAnalyteName,verifyMeltPeak,verifyMeltPeakHeight);
 
-    int errorID = 0;
-    String errorTable = "";
-    String errorTableHeader                                                      = "<h3><u>Error Table</u></h3>\r\n";
-    String analyteErrorTable                                                     = ""; 
-    String analyteErrorHeader                                                    = "<h3><u>Analyte Error Table</u></h3>\r\n";
+    int errorID                                                             = 0;
+    String errorTable                                                       = "";
+    String errorTableHeader                                                 = "<h3><u>Error Table</u></h3>\r\n";
+    String analyteErrorTable                                                = ""; 
+    String analyteErrorHeader                                               = "<h3><u>Analyte Error Table</u></h3>\r\n";
 
     
     //Create the table header of Test Results    
@@ -99,6 +101,12 @@ public class htmlCreator extends ExcelMethods
      */
     for (int outerArray = 0; outerArray < htmlList.size(); outerArray++) {
       concat(beginRow); 
+      if(P_F.get(htmlList.get(outerArray).get(0)) == true)
+      {
+        concat(String.format("<td style= \"background-color:#%s\"><pre>%s</pre></td>\r\n", green,"PASS"));
+      }
+      else
+        concat(String.format("<td style= \"background-color:#%s\"><pre>%s</pre></td>\r\n", red, "FAIL"));
       for (int innerArray = 0; innerArray < htmlList.get(outerArray).size(); innerArray++) {
         String cell = htmlList.get(outerArray).get(innerArray);       
         if (cell.contains("Error.")) {
@@ -163,20 +171,28 @@ public class htmlCreator extends ExcelMethods
       for (int count = 0; count < htmlAnalyteR.get(val).size(); count++) {
         
         //Start a new row once all 6 data points of analyte are checked
-        if (count % 6 == 0 && count != 0) {
+        if (count % 7 == 0 && count != 0) {
        
           concat(endRow);
         }
         String aCell = htmlAnalyteR.get(val).get(count);
         if (aCell.contains("Error.")) {
           concat(String.format("<td id =\"Error%s\" style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", errorID, red, aCell));
-          analyteErrorTable = analyteErrorTable.concat(createARErrorCells(val,htmlAnalyteR.get(val).get(count-(count%6)), errorID, (count % 6)+1));
+          analyteErrorTable = analyteErrorTable.concat(createARErrorCells(val,htmlAnalyteR.get(val).get(count-(count%7)+1), errorID, (count % 7)+1));
           errorID++;
         } 
         else if(aCell.contains("***"))
         {
          
           concat(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", yellow,aCell));
+        }
+        else if(aCell.equals("PASS"))
+        {
+          concat(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", green,aCell));
+        }
+        else if(aCell.equals("FAIL"))
+        {
+          concat(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", red,aCell));
         }
         else {
          
@@ -209,20 +225,28 @@ public class htmlCreator extends ExcelMethods
        * 
        */
       for (int detailNum = 0; detailNum < htmlAnalyteD.get(val).size(); detailNum++) {
-        if (detailNum % 6 == 0 && detailNum != 0) {
+        if (detailNum % 7 == 0 && detailNum != 0) {
           
           concat(endRow);
         }
         String aCell = htmlAnalyteD.get(val).get(detailNum);
         if (aCell.contains("Error.")) {
          concat(String.format("<td id=\"Error%s\" style=\"background-color:#%s\"><pre>%s</pre></td>\r\n",errorID, red, aCell));
-          analyteErrorTable = analyteErrorTable.concat(createADErrorCells(val,htmlAnalyteD.get(val).get(detailNum-(detailNum%6)),errorID,(detailNum % 6)+1));
+          analyteErrorTable = analyteErrorTable.concat(createADErrorCells(val,htmlAnalyteD.get(val).get(detailNum-(detailNum%7)+1),errorID,(detailNum % 7)+1));
           errorID++;
         }
         else if(aCell.contains("***"))
         {
        
          concat(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", yellow,aCell));
+        }
+        else if(aCell.equals("PASS"))
+        {
+          concat(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", green,aCell));
+        }
+        else if(aCell.equals("FAIL"))
+        {
+          concat(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", red,aCell));
         }
         else
         {
@@ -253,7 +277,7 @@ public class htmlCreator extends ExcelMethods
         
         for(int meltNum = 0; meltNum < htmlAnalyteMelt.get(val).size(); meltNum++)
         {
-          if(meltNum % 3 == 0 && meltNum != 0)
+          if(meltNum % 4 == 0 && meltNum != 0)
           {
             concat(endRow);
           }
@@ -261,8 +285,16 @@ public class htmlCreator extends ExcelMethods
           if(aCell.contains("Error."))
           {
             concat(String.format("<td id=\"Error%s\" style=\"background-color:#%s\"><pre>%s</pre></td>\r\n",errorID, red, aCell));
-            analyteErrorTable = analyteErrorTable.concat(createMeltErrorCells(val,htmlAnalyteMelt.get(val).get(meltNum-(meltNum%3)),errorID,(meltNum % 3)+1));
+            analyteErrorTable = analyteErrorTable.concat(createMeltErrorCells(val,htmlAnalyteMelt.get(val).get(meltNum-(meltNum%4)+1),errorID,(meltNum % 4)+1));
             errorID++;
+          }
+          else if(aCell.equals("PASS"))
+          {
+            concat(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", green,aCell));
+          }
+          else if(aCell.equals("FAIL"))
+          {
+            concat(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", red,aCell));
           }
           else
           {
@@ -425,22 +457,22 @@ public class htmlCreator extends ExcelMethods
     String colName = "";
     switch(colNum)
     {
-      case 1:
+      case 2:
         colName = "Analyte Name";
         break;
-      case 2:
+      case 3:
         colName = "Ct";
         break;
-      case 3:
+      case 4:
         colName = "End Pt";
         break;
-      case 4:
+      case 5:
         colName = "Interpretation Result";
         break;
-      case 5:
+      case 6:
         colName = "Analyte Reason";
         break;
-      case 6: 
+      case 7: 
         colName = "Analyte Result";
         break;
       default:
@@ -461,22 +493,22 @@ public class htmlCreator extends ExcelMethods
     String colName = "";
     switch(colNum)
     {
-      case 1:
+      case 2:
         colName = "Analyte Name";
         break;
-      case 2:
+      case 3:
         colName = "Prb Check 1";
         break;
-      case 3:
+      case 4:
         colName = "Prb Check 2";
         break;
-      case 4:
+      case 5:
         colName = "Prb Check 3";
         break;
-      case 5:
+      case 6:
         colName = "Probe Check Result";
         break;
-      case 6: 
+      case 7: 
         colName = "2nd Deriv Peak";
         break;
       default:
@@ -526,6 +558,10 @@ public class htmlCreator extends ExcelMethods
     htmlCode = htmlCode.concat(code);
   }
   
+  public void setPF(Map<String, Boolean> PF)
+  {
+    P_F = PF; 
+  }
   
   
   

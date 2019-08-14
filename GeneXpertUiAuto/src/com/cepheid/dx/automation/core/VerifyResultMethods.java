@@ -173,7 +173,7 @@ public class VerifyResultMethods extends htmlCreator
           updateFail(key);
         }
       } else
-        resultVal = resultVal.concat(String.format("$$$ \nRow does not Exist: \n %s", rowGUI));
+        resultVal = resultVal.concat(String.format("$$$ \nNo Text is Displayed \n %s", rowGUI));
 
       resultVal = resultVal.concat("\r\n");
     }
@@ -255,6 +255,15 @@ public class VerifyResultMethods extends htmlCreator
     if (exInterpretation.equals(analyteR.get(4))) {
       resultVal.add(String.format("Actual Interpretation Result:   %s \nExpected Interpretation Result: %s ",
           analyteR.get(4), exInterpretation));
+    } else if (exInterpretation.equals("NA")) {
+      if (analyteR.get(4).equals("NO RESULT")) {
+        resultVal.add(String.format("*** \nActual Interpretation Result:   %s \n Expected Interpretation Result: %s",
+            analyteR.get(4), exInterpretation));
+      } else {
+        resultVal.add(String.format("Error.\nActual Interpretation Result:   %s \nExpected Interpretation Result: %s ",
+            analyteR.get(4), exInterpretation));
+        resultVal.set(0, "FAIL");
+      }
     } else {
       resultVal.add(String.format("Error.\nActual Interpretation Result:   %s \nExpected Interpretation Result: %s ",
           analyteR.get(4), exInterpretation));
@@ -274,7 +283,7 @@ public class VerifyResultMethods extends htmlCreator
         resultVal.add(String.format("*** \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
       } else {
         resultVal.add(String.format("Error. \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
-        resultVal.set(0, "FAIL"); 
+        resultVal.set(0, "FAIL");
       }
     }
     // Check for exceptions of No CT
@@ -283,7 +292,7 @@ public class VerifyResultMethods extends htmlCreator
         resultVal.add(String.format("*** \nActual Reason   %s \nExpected Reason: %s ", analyteR.get(5), exReason));
       } else {
         resultVal.add(String.format("Error. \nActual Reason:   %s \nExpected Reason: %s", analyteR.get(5), exReason));
-        resultVal.set(0, "FAIL"); 
+        resultVal.set(0, "FAIL");
       }
     }
     // Produce error if Ct not found
@@ -299,7 +308,7 @@ public class VerifyResultMethods extends htmlCreator
     } else {
       resultVal.add(String.format("Error.\nActual Analyte Result:  %s \nExpected Analyte Result: %s", analyteR.get(6),
           exAnalyteResult));
-      resultVal.set(0, "FAIL"); 
+      resultVal.set(0, "FAIL");
     }
     return resultVal;
   }
@@ -321,7 +330,7 @@ public class VerifyResultMethods extends htmlCreator
 
     exPrbChkResult = verifyPCR(exPrbChkResult);
     exDerivPeak = verify2ndDeriv(exDerivPeak);
-    
+
     resultVal.add("PASS");
 
     // Compare Analyte Names
@@ -483,21 +492,20 @@ public class VerifyResultMethods extends htmlCreator
   {
     PF.put(key, null);
   }
-  
-  public void convertToTrue()
+
+  public void convertToTrue ()
   {
-    for(String key: PF.keySet())
-    {
-      if(PF.get(key) == null)
+    for (String key : PF.keySet()) {
+      if (PF.get(key) == null)
         PF.put(key, true);
       logInfo(key + PF.get(key) + " ");
-      }
-     
+    }
+
   }
-  
-  public void mapToHTML()
+
+  public void mapToHTML ()
   {
-    setPF(PF); 
+    setPF(PF);
   }
 
   private void updateFail (String key)
@@ -505,6 +513,10 @@ public class VerifyResultMethods extends htmlCreator
     if (PF.get(key) == null) {
       PF.put(key, false);
     }
+  }
+  public void resetMap()
+  {
+    PF.clear();
   }
 
 }

@@ -1,6 +1,7 @@
 package com.cepheid.dx.automation.core;
+import com.cepheid.dx.automation.core.BasicDX;
 
-public class Locators extends InputDialog
+public class Locators extends BasicDX
 {
 
   protected String locator (String args)

@@ -3,27 +3,28 @@ package com.cepheid.dx.automation.demo;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 import org.junit.Test;
 
-import com.cepheid.dx.automation.meltCore.MeltVerifyResult;
+import com.cepheid.dx.automation.core.VerifyResultMethods;
 
-public class MeltVerification extends MeltVerifyResult
+public class D8380Verification extends VerifyResultMethods
 {
 
-  public void D19170_MeltVerification ()
+  public void ProbeCheckVerification (String folder, String document, String workSheet)
   {
-    String folder = "D19170 Melt";
-    String document = "D19170 Melt Peak Verification";
+
     FileInputStream file = openFileInputStream(String.format("C:\\Silk Data Files\\%s\\%s.xls", folder, document));
 
     // Get excel workbook && Get Specific Sheet
     HSSFWorkbook workbook = openHSSFWorkbook(file);
-    String workSheet = "All Tests";
+    logInfo(workSheet);
     HSSFSheet sheet = openHSSFSheet(workbook, workSheet);
 
     // Login to Cepheid
@@ -31,10 +32,8 @@ public class MeltVerification extends MeltVerifyResult
     // View Test Panel
     navigateToViewResults();
 
-    // Obtain static values from excel for each test case
     Map<String, ArrayList<String>> expectedData = createStaticMapValues(sheet);
 
-    // Obtain matching test cases and their row number
     Map<String, Integer> sampleIDList = actualResultsList(expectedData);
 
     ArrayList<ArrayList<String>> htmlData = new ArrayList<ArrayList<String>>();
@@ -45,9 +44,6 @@ public class MeltVerification extends MeltVerifyResult
 
     Map<String, ArrayList<String>> htmlAnalyteD = new HashMap<String, ArrayList<String>>();
     ArrayList<String> htmlADValue;
-
-    Map<String, ArrayList<String>> htmlAnalyteMelt = new HashMap<String, ArrayList<String>>();
-    ArrayList<String> htmlMeltValue;
 
     int count = 0;
 
@@ -60,10 +56,8 @@ public class MeltVerification extends MeltVerifyResult
       htmlValue.add(key);
       // Analyte Results Storage
       htmlARValue = new ArrayList<String>();
-
+      // Analyte Detail Storage
       htmlADValue = new ArrayList<String>();
-
-      htmlMeltValue = new ArrayList<String>();
 
       // Click Specific Assay in JTable
       clickResult(sampleIDList.get(key));
@@ -97,47 +91,124 @@ public class MeltVerification extends MeltVerifyResult
 
       HSSFSheet analyteSheet = openHSSFSheet(workbook, key);
 
+      // Create map of Analyte Data for each assay
+      Map<String, ArrayList<String>> analyteDataMap = exAnalyteDataMap(analyteSheet);
+
+      logInfo(Arrays.toString(analyteDataMap.keySet().toArray()));
+      int rowNum = 0;
+
       clickTabbedPane(VR_TABBED_PANE, "Analyte Result");
 
       // Check the analyte results tab
-      htmlARValue = verifyResultsTab(analyteSheet);
+      while (rowNum < analyteDataMap.keySet().size()) {
 
-      // Check the analyte details tab
+        if (rowNum < findJTable(VR_ANALYTE_RTABLE).getRowCount()) {
+          htmlARValue.addAll(verifyAnalyteResults(analyteDataMap, rowNum));
+        }
+        rowNum++;
+      }
+
       clickTabbedPane(VR_TABBED_PANE, "Detail");
-      htmlADValue = verifyAnalyteResultDetails(analyteSheet);
+      while (rowNum < analyteDataMap.keySet().size()) {
 
-      // Check the analyte Melt Peak tab
-      clickTabbedPane(VR_TABBED_PANE, "Melt Peaks");
-      htmlMeltValue = getMeltPeaks(analyteSheet);
+        htmlADValue.addAll(verifyAnalyteDetails(analyteDataMap, rowNum));
+
+        rowNum++;
+      }
+
+      count++;
 
       // Add to htmlArrayList
       htmlData.add(htmlValue);
-
       htmlAnalyteR.put(key, htmlARValue);
       htmlAnalyteD.put(key, htmlADValue);
-      htmlAnalyteMelt.put(key, htmlMeltValue);
 
-      count++;
       logInfo("====================");
     }
-    
+
     convertToTrue();
     mapToHTML();
+
     try {
       document = String.format("%s-%s", document, workSheet);
-      html(htmlData, htmlAnalyteR, htmlAnalyteD, htmlAnalyteMelt, true, document,folder);
+      html(htmlData, htmlAnalyteR, htmlAnalyteD, null, false, document, folder);
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
     logInfo(String.format("I analyzed %s test results", count));
   }
-  
+
   @Test
-  public void MeltTestVerification()
+  public void D8380_ProbeCheckCombinatorial_TestResult3 ()
   {
-    D19170_MeltVerification();
+    ProbeCheckVerification("D8380 Probe Check", "ProbeCheckCombinatorial", "TestResult3");
+    resetMap();
+    resetHtml();
   }
 
+  @Test
+  public void D8380_ProbeCheckNormalization1_TestResult3 ()
+  {
+    ProbeCheckVerification("D8380 Probe Check", "ProbeCheckNormalization1", "TestResult3");
+    resetMap();
+    resetHtml();
+  }
+
+  @Test
+  public void D8380_ProbeCheckNormalizationMelt_Melt ()
+  {
+    ProbeCheckVerification("D8380 Probe Check", "ProbeCheckNormalizationMelt", "Melt");
+    resetMap();
+    resetHtml();
+  }
+
+  @Test
+  public void D8380_ProbeCheckVerification1_LSP1 ()
+  {
+    ProbeCheckVerification("D8380 Probe Check", "ProbeCheckVerification1", "LSP1");
+    resetMap();
+    resetHtml();
+  }
+
+  @Test
+  public void D8380_ProbeCheckVerification1_PrbChk2 ()
+  {
+    ProbeCheckVerification("D8380 Probe Check", "ProbeCheckVerification1", "PrbChk2");
+    resetMap();
+    resetHtml();
+  }
+
+  @Test
+  public void D8380_ProbeCheckVerification1_PrbChk3_7 ()
+  {
+    ProbeCheckVerification("D8380 Probe Check", "ProbeCheckVerification1", "PrbChk-3_7");
+    resetMap();
+    resetHtml();
+  }
+
+  @Test
+  public void D8380_ProbeCheckVerification1_PrbChk8 ()
+  {
+    ProbeCheckVerification("D8380 Probe Check", "ProbeCheckVerification1", "PrbChk-8");
+    resetMap();
+    resetHtml();
+  }
+
+  @Test
+  public void D8380_ProbeCheckVerification1_PrbChk_9_13 ()
+  {
+    ProbeCheckVerification("D8380 Probe Check", "ProbeCheckVerification1", "PrbChk-9_13");
+    resetMap();
+    resetHtml();
+  }
+
+  @Test
+  public void D8380_ProbeCheckVerification1_TestResult6 ()
+  {
+    ProbeCheckVerification("D8380 Probe Check", "ProbeCheckVerification1", "TestResult6");
+    resetMap();
+    resetHtml();
+  }
 
 }

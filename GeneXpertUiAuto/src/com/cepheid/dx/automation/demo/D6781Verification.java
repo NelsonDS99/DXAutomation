@@ -3,27 +3,30 @@ package com.cepheid.dx.automation.demo;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 import org.junit.Test;
 
-import com.cepheid.dx.automation.meltCore.MeltVerifyResult;
+import com.cepheid.dx.automation.core.VerifyResultMethods;
 
-public class MeltVerification extends MeltVerifyResult
+public class D6781Verification extends VerifyResultMethods
 {
-
-  public void D19170_MeltVerification ()
+  
+  public void BasicOrganismBasedTestResultsVerification (String folder, String document, String workSheet)
   {
-    String folder = "D19170 Melt";
-    String document = "D19170 Melt Peak Verification";
+    //String folder = selectFolder();
+   // String document = selectDocument(folder);
     FileInputStream file = openFileInputStream(String.format("C:\\Silk Data Files\\%s\\%s.xls", folder, document));
 
     // Get excel workbook && Get Specific Sheet
     HSSFWorkbook workbook = openHSSFWorkbook(file);
-    String workSheet = "All Tests";
+   // String workSheet = selectSheet(document);
+    logInfo(workSheet);
     HSSFSheet sheet = openHSSFSheet(workbook, workSheet);
 
     // Login to Cepheid
@@ -31,10 +34,8 @@ public class MeltVerification extends MeltVerifyResult
     // View Test Panel
     navigateToViewResults();
 
-    // Obtain static values from excel for each test case
     Map<String, ArrayList<String>> expectedData = createStaticMapValues(sheet);
 
-    // Obtain matching test cases and their row number
     Map<String, Integer> sampleIDList = actualResultsList(expectedData);
 
     ArrayList<ArrayList<String>> htmlData = new ArrayList<ArrayList<String>>();
@@ -45,9 +46,6 @@ public class MeltVerification extends MeltVerifyResult
 
     Map<String, ArrayList<String>> htmlAnalyteD = new HashMap<String, ArrayList<String>>();
     ArrayList<String> htmlADValue;
-
-    Map<String, ArrayList<String>> htmlAnalyteMelt = new HashMap<String, ArrayList<String>>();
-    ArrayList<String> htmlMeltValue;
 
     int count = 0;
 
@@ -60,10 +58,8 @@ public class MeltVerification extends MeltVerifyResult
       htmlValue.add(key);
       // Analyte Results Storage
       htmlARValue = new ArrayList<String>();
-
+      // Analyte Detail Storage
       htmlADValue = new ArrayList<String>();
-
-      htmlMeltValue = new ArrayList<String>();
 
       // Click Specific Assay in JTable
       clickResult(sampleIDList.get(key));
@@ -93,39 +89,57 @@ public class MeltVerification extends MeltVerifyResult
 
       // Check the disclaimer box
       String resultDisclaimer = resultDisclaimer(sheet, key);
-      htmlValue.add(verifyDisclaimer(resultDisclaimer, key));
+      htmlValue.add(verifyDisclaimer(resultDisclaimer,key));
 
       HSSFSheet analyteSheet = openHSSFSheet(workbook, key);
+
+      // Create map of Analyte Data for each assay
+      Map<String, ArrayList<String>> analyteDataMap = exAnalyteDataMap(analyteSheet);
+
+      logInfo(Arrays.toString(analyteDataMap.keySet().toArray()));
+      int rowNum = 0;
 
       clickTabbedPane(VR_TABBED_PANE, "Analyte Result");
 
       // Check the analyte results tab
-      htmlARValue = verifyResultsTab(analyteSheet);
+      while (rowNum < analyteDataMap.keySet().size()) {
+
+        if (rowNum < findJTable(VR_ANALYTE_RTABLE).getRowCount()) {
+          htmlARValue.addAll(verifyAnalyteResults(analyteDataMap, rowNum));
+        }
+        rowNum++;
+      }
 
       // Check the analyte details tab
-      clickTabbedPane(VR_TABBED_PANE, "Detail");
-      htmlADValue = verifyAnalyteResultDetails(analyteSheet);
+      if (key.equals("ORG-12.A4") || key.equals("ORG-12.A3")) {
+        rowNum = 1;
+      } else
+        rowNum = 0;
 
-      // Check the analyte Melt Peak tab
-      clickTabbedPane(VR_TABBED_PANE, "Melt Peaks");
-      htmlMeltValue = getMeltPeaks(analyteSheet);
+      clickTabbedPane(VR_TABBED_PANE, "Detail");
+      while (rowNum < analyteDataMap.keySet().size()) {
+
+        htmlADValue.addAll(verifyAnalyteDetails(analyteDataMap, rowNum));
+
+        rowNum++;
+      }
+
+      count++;
 
       // Add to htmlArrayList
       htmlData.add(htmlValue);
-
       htmlAnalyteR.put(key, htmlARValue);
       htmlAnalyteD.put(key, htmlADValue);
-      htmlAnalyteMelt.put(key, htmlMeltValue);
 
-      count++;
       logInfo("====================");
     }
     
-    convertToTrue();
+    convertToTrue(); 
     mapToHTML();
+    
     try {
       document = String.format("%s-%s", document, workSheet);
-      html(htmlData, htmlAnalyteR, htmlAnalyteD, htmlAnalyteMelt, true, document,folder);
+      html(htmlData, htmlAnalyteR, htmlAnalyteD, null, false, document,folder);
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -134,10 +148,44 @@ public class MeltVerification extends MeltVerifyResult
   }
   
   @Test
-  public void MeltTestVerification()
+  public void D6781_BasicOrganismBasedTestResults_AllTestResults()
   {
-    D19170_MeltVerification();
+    BasicOrganismBasedTestResultsVerification("D6781 Organism-Based Results", "D6781 Basic Organism Based Test Results Verification","AllTestResults");
+    resetMap();
+    resetHtml();
   }
+  
+  @Test
+  public void D6781_CTNGTestResultsVerification_AllTestResults()
+  {
+    BasicOrganismBasedTestResultsVerification("D6781 Organism-Based Results", "D6781 CTNG Test Results Verification","AllTestResults");
+    resetMap();
+    resetHtml();
 
+  }
+  
+  @Test
+  public void D6781_DeltaCtOrganismTestResultsVerification_AllTestResults()
+  {
+    BasicOrganismBasedTestResultsVerification("D6781 Organism-Based Results", "D6781 Delta Ct Organism Test Results Verification","AllTestResults");
+    resetMap();
+    resetHtml();
+  }
+  
+  @Test
+  public void D6781_OrganismTypeCombinationTestResultsVerification_AllTestResults()
+  {
+    BasicOrganismBasedTestResultsVerification("D6781 Organism-Based Results", "D6781 Organism Type Combination Test Results Verification","AllTestResults");
+    resetMap();
+    resetHtml();
+  }
+  
+  @Test
+  public void D6781_SemiQuantitativeTestResultsVerification_AllTestResults()
+  {
+    BasicOrganismBasedTestResultsVerification("D6781 Organism-Based Results", "D6781 Semi-quantitative Organism Test Results Verification","AllTestResults");
+    resetMap();
+    resetHtml();
+  }
 
 }

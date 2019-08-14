@@ -13,10 +13,10 @@ public class htmlCreator extends ExcelMethods
   
   
   public void html (ArrayList<ArrayList<String>> htmlList, Map<String, ArrayList<String>> htmlAnalyteR,
-      Map<String, ArrayList<String>> htmlAnalyteD,Map<String, ArrayList<String>> htmlAnalyteMelt, boolean melt, String document) throws IOException
+      Map<String, ArrayList<String>> htmlAnalyteD,Map<String, ArrayList<String>> htmlAnalyteMelt, boolean melt, String document,String folder) throws IOException
   {
-    //Create either html file or txt file
-    String file = path(document); 
+    //Create either html file
+    String file = path(document,folder); 
     FileWriter fileWriter = new FileWriter(file);
     PrintWriter printWriter = new PrintWriter(fileWriter);
 
@@ -322,11 +322,11 @@ public class htmlCreator extends ExcelMethods
   /*
    * The path at which the html file will be saved
    */
-  private String path(String document)
+  private String path(String document, String folder)
   {
-    String testResult = getTestResult(); 
+   
     return String.format(
-        "C:\\Users\\nelson.scott\\gitDx\\GeneXpertUiAuto\\TestResultFiles\\%s\\%s.html", testResult,
+        "C:\\Users\\nelson.scott\\gitDx\\GeneXpertUiAuto\\TestResultFiles\\%s\\%s.html", folder,
         document);
   }
   /*
@@ -561,6 +561,10 @@ public class htmlCreator extends ExcelMethods
   public void setPF(Map<String, Boolean> PF)
   {
     P_F = PF; 
+  }
+  public void resetHtml()
+  {
+    htmlCode = "";
   }
   
   

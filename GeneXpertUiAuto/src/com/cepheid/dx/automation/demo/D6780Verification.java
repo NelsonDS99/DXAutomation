@@ -27,8 +27,6 @@ public class D6780Verification extends VerifyResultMethods
     logInfo(workSheet);
     HSSFSheet sheet = openHSSFSheet(workbook, workSheet);
 
-    // Login to Cepheid
-    // userLogin();
     // View Test Panel
     navigateToViewResults();
 

@@ -26,8 +26,6 @@ public class MeltVerification extends MeltVerifyResult
     String workSheet = "All Tests";
     HSSFSheet sheet = openHSSFSheet(workbook, workSheet);
 
-    // Login to Cepheid
-    // userLogin();
     // View Test Panel
     navigateToViewResults();
 
@@ -37,6 +35,7 @@ public class MeltVerification extends MeltVerifyResult
     // Obtain matching test cases and their row number
     Map<String, Integer> sampleIDList = actualResultsList(expectedData);
 
+    //Record all the result data to be used in the htmlCreator class
     ArrayList<ArrayList<String>> htmlData = new ArrayList<ArrayList<String>>();
     ArrayList<String> htmlValue;
 

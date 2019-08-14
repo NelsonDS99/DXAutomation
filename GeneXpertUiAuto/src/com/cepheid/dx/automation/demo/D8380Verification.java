@@ -27,8 +27,6 @@ public class D8380Verification extends VerifyResultMethods
     logInfo(workSheet);
     HSSFSheet sheet = openHSSFSheet(workbook, workSheet);
 
-    // Login to Cepheid
-    // userLogin();
     // View Test Panel
     navigateToViewResults();
 
@@ -108,6 +106,7 @@ public class D8380Verification extends VerifyResultMethods
         rowNum++;
       }
 
+      rowNum = 0;
       clickTabbedPane(VR_TABBED_PANE, "Detail");
       while (rowNum < analyteDataMap.keySet().size()) {
 

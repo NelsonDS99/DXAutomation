@@ -318,6 +318,10 @@ public class htmlCreator extends ExcelMethods
     fileWriter.close();
 
   }
+  private void createAssayTable()
+  {
+    
+  }
   
   /*
    * The path at which the html file will be saved

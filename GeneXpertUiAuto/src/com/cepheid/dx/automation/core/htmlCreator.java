@@ -119,10 +119,6 @@ public class htmlCreator extends ExcelMethods
          concat(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", yellow,cell)); 
           
         }
-        else if(cell.contains("$$$"))
-        {
-          concat(String.format("<td style=\"background-color:#%s\"><pre>%s</pre></td>\r\n", green,cell));
-        }
         else
           concat(String.format("<td><pre>%s</pre></td>\r\n", cell));
       }
@@ -318,10 +314,7 @@ public class htmlCreator extends ExcelMethods
     fileWriter.close();
 
   }
-  private void createAssayTable()
-  {
-    
-  }
+ 
   
   /*
    * The path at which the html file will be saved
@@ -379,7 +372,7 @@ public class htmlCreator extends ExcelMethods
   }
   
   /*
-   * Sytle the rows with a color
+   * Style the rows with a color
    */
   private String styleRows()
   {

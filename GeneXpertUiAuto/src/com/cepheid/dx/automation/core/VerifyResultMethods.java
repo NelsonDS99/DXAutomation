@@ -173,7 +173,7 @@ public class VerifyResultMethods extends htmlCreator
           updateFail(key);
         }
       } else
-        resultVal = resultVal.concat(String.format("$$$ \nNo Text is Displayed \n %s", rowGUI));
+        resultVal = resultVal.concat(String.format("No Text is Displayed \n %s", rowGUI));
 
       resultVal = resultVal.concat("\r\n");
     }
@@ -238,14 +238,14 @@ public class VerifyResultMethods extends htmlCreator
     }
 
     // Compare Ct
-    if (exCt.equals(analyteR.get(2))) {
+    if (ctRange(analyteR.get(2), exCt)) {
       resultVal.add(String.format("Actual Ct:   %s \nExpected Ct: %s", analyteR.get(2), exCt));
     } else {
       resultVal.add(String.format("Error.\nActual Ct:   %s \nExpected Ct: %s", analyteR.get(2), exCt));
       resultVal.set(0, "FAIL");
     }
     // Compare EndPt
-    if (exEndPt.equals(analyteR.get(3))) {
+    if (endPtRange(analyteR.get(3), exEndPt)) {
       resultVal.add(String.format("Actual EndPt:   %s \nExpected EndPt: %s", analyteR.get(3), exEndPt));
     } else {
       resultVal.add(String.format("Error.\nActual EndPt:   %s \nExpected EndPt: %s", analyteR.get(3), exEndPt));
@@ -328,9 +328,6 @@ public class VerifyResultMethods extends htmlCreator
     String exPrbChkResult = exAnalyteData.get(key).get(5);
     String exDerivPeak = exAnalyteData.get(key).get(10);
 
-    exPrbChkResult = verifyPCR(exPrbChkResult);
-    exDerivPeak = verify2ndDeriv(exDerivPeak);
-
     resultVal.add("PASS");
 
     // Compare Analyte Names
@@ -364,7 +361,11 @@ public class VerifyResultMethods extends htmlCreator
       resultVal.set(0, "FAIL");
     }
     // Compare Probe Check Result
-    if (exPrbChkResult.equals(analyteD.get(5))) {
+    if(exPrbChkResult.equals("-9999.0"))
+    {
+      resultVal.add(String.format("***\nActual Probe Check Result:  %s \nExpected Probe Check Result: %s", analyteD.get(5), exPrbChkResult)); 
+    }
+    else if (exPrbChkResult.equals(analyteD.get(5))) {
       resultVal.add(String.format("Actual Probe Check Result:   %s \nExpected Probe Check Result: %s", analyteD.get(5),
           exPrbChkResult));
     } else {
@@ -373,7 +374,11 @@ public class VerifyResultMethods extends htmlCreator
       resultVal.set(0, "FAIL");
     }
     // Compare 2nd Deriv Peak
-    if (exDerivPeak.equals(analyteD.get(6))) {
+    if(exDerivPeak.equals("-9999.0"))
+    {
+      resultVal.add(String.format("***\nActual 2nd Deriv Peak:   %s \nExpected 2nd Deriv Peak: %s", analyteD.get(6),exDerivPeak));
+    }
+    else if (exDerivPeak.equals(analyteD.get(6))) {
       resultVal.add(
           String.format("Actual 2nd Deriv Peak:   %s \nExpected 2nd Deriv Peak: %s", analyteD.get(6), exDerivPeak));
     } else {
@@ -453,27 +458,6 @@ public class VerifyResultMethods extends htmlCreator
     return analyteR;
   }
 
-  /*
-   * Converts -9999.9 as NA
-   */
-  private String verifyPCR (String data)
-  {
-    if (data.equals("-9999.0")) {
-      data = "NA";
-    }
-    return data;
-  }
-
-  /*
-   * Converts -9999.9 as 0.0
-   */
-  private String verify2ndDeriv (String data)
-  {
-    if (data.equals("-9999.0")) {
-      data = "0.0";
-    }
-    return data;
-  }
 
   /*
    * Checks for which disclaimer ID is present
@@ -486,6 +470,36 @@ public class VerifyResultMethods extends htmlCreator
       return "2";
     } else
       return "-1";
+  }
+  
+  private boolean endPtRange(String actualPt, String expPt)
+  {
+    int expInt = Integer.parseInt(expPt);
+    int value = Integer.parseInt(actualPt);
+    int minVal = value-1;
+    int maxVal = value+1;
+    
+    if (expInt >= minVal && expInt <= maxVal)
+    {
+      return true;
+    }
+    else
+      return false;
+  }
+  
+  private boolean ctRange(String actualCt, String expCt)
+  {
+    double expDoub = Double.parseDouble(expCt);
+    double value = Double.parseDouble(actualCt);
+    double minVal = value - 0.1;
+    double maxVal = value + 0.1;
+    
+    if(expDoub >= minVal && expDoub <= maxVal)
+    {
+      return true;
+    }
+    else
+      return false;
   }
 
   public void setMap (String key)

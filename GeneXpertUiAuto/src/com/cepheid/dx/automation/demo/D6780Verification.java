@@ -24,7 +24,6 @@ public class D6780Verification extends VerifyResultMethods
 
     // Get excel workbook && Get Specific Sheet
     HSSFWorkbook workbook = openHSSFWorkbook(file);
-    logInfo(workSheet);
     HSSFSheet sheet = openHSSFSheet(workbook, workSheet);
 
     // View Test Panel
@@ -160,6 +159,13 @@ public class D6780Verification extends VerifyResultMethods
     CustomizeTestResult("D6780 Customize Test Result", "VerifyResultText_and_Color", "TestRes5");
     resetMap();
     resetHtml();
+  }
+  
+  @Test
+  public void D6780_VerifyResultTextandColor6ColorTest()
+  {
+    CustomizeTestResult("D6780 Customize Test Result", "VerifyResultText_and_Color-6-color", "TestRes6Target");
+
   }
 }
   

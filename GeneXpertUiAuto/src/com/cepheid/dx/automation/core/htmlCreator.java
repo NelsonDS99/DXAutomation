@@ -323,7 +323,7 @@ public class htmlCreator extends ExcelMethods
   {
    
     return String.format(
-        "C:\\Users\\nelson.scott\\gitDx\\GeneXpertUiAuto\\TestResultFiles\\%s\\%s.html", folder,
+        "Z:\\swq\\private\\Nelson\\DX Automation\\GeneXpertUiAuto\\TestResultFiles\\%s\\%s.html", folder,
         document);
   }
   /*

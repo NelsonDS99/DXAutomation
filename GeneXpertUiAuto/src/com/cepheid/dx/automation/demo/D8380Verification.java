@@ -20,7 +20,7 @@ public class D8380Verification extends VerifyResultMethods
   public void ProbeCheckVerification (String folder, String document, String workSheet)
   {
 
-    FileInputStream file = openFileInputStream(String.format("C:\\Silk Data Files\\%s\\%s.xls", folder, document));
+    FileInputStream file = openFileInputStream(String.format("Z:\\swq\\private\\Nelson\\DX Automation\\Silk Data Files\\%s\\%s.xls", folder, document));
 
     // Get excel workbook && Get Specific Sheet
     HSSFWorkbook workbook = openHSSFWorkbook(file);

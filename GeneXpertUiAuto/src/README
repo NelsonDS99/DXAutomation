@@ -1,3 +1,40 @@
 Guide to GeneXpert Dx Automation
 ================================
 The Setup:
+Import all the necessary libraries needed: (These libraries should be automatically imported when creating a silk test project)
+	The JRE
+	Silk Test JTF
+	JUnit 4
+The Apache Library (A folder called common libraries will have these libraries)
+	commons-collection4-4.3
+	commons-compress-1.18
+	junit-4.12
+	log4j-1.2.17
+	poi-4.1.0
+	xmlbeans-3.1.0
+Ensure the references are correct to these libraries 
+	RightClick Project --> Build Path --> Configure Libraries 
+Confirm that the data files have the correct path
+	Located in any of the verification demo, under FileInputStream
+Confirm the html result files are saved in the correct path
+	Under the htmlCreator class
+If ever prompt on how to run the verification code, click Silk4J Test
+======================================
+Excel Format
+	Any of the excel verification worksheets in Silk Data files that have been used in the corresponding verification demos are proper templates
+	Melt Verification is unique due to having melt peak data values in the analyte sheets
+	*Do Not switch around column values in future sheets, as the code will pull the wrong data when doing verification
+		Or change the code if need be to pull the correct column values
+=========================================
+When running the code do not have any DX pop ups open.
+Do not touch the mouse if running a verification test, only if you are trying to stop the test
+Have the proper data injection files in DX when running the specific data injection verification
+========================================
+Classes
+	Locators- Has the strings of the Dx objects in which the program can locate the specified objects
+		If adding more objects use the locator spy to map the objects
+	Basic Dx - Returns the specified objects in order to call methods from said objects
+================
+Left To Do
+	XSSF methods - For modern excel files
+	Multicart Verification

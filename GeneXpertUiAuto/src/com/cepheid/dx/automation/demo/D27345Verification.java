@@ -21,7 +21,7 @@ public class D27345Verification extends VerifyResultMethods
   {
     //String folder = selectFolder();
    // String document = selectDocument(folder);
-    FileInputStream file = openFileInputStream(String.format("C:\\Silk Data Files\\%s\\%s.xls", folder, document));
+    FileInputStream file = openFileInputStream(String.format("Z:\\swq\\private\\Nelson\\DX Automation\\Silk Data Files\\%s\\%s.xls", folder, document));
 
     // Get excel workbook && Get Specific Sheet
     HSSFWorkbook workbook = openHSSFWorkbook(file);
